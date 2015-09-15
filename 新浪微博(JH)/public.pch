@@ -1,0 +1,48 @@
+//
+//  public.pch
+//  新浪微博(JH)
+//
+//  Created by JasonHuang on 15/9/10.
+//  Copyright (c) 2015年 MyIOS. All rights reserved.
+//
+
+#ifndef _____JH__public_pch
+#define _____JH__public_pch
+/**
+ *  RGB颜色设置
+ *
+ *  @param r 0~255
+ *  @param g 0~255
+ *  @param b 0~255
+ */
+#define JHColor(r,g,b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0];
+/**
+ *  随机颜色
+ */
+#define JHRandomColor [UIColor colorWithRed:arc4random_uniform(256)/255.0 green:arc4random_uniform(256)/255.0 blue:arc4random_uniform(256)/255.0 alpha:1.0];
+
+/**
+ *  UIView分类
+ */
+#import "UIView+Extension.h"
+
+/**
+ *  UIBarButtonItem分类
+ */
+#import "UIBarButtonItem+Extension.h"
+
+/**
+ *  UIWindow分类
+ */
+#import "UIWindow+Extension.h"
+
+/**
+ *  日志开关
+ */
+#ifdef DEBUG
+#define JHLog(...) NSLog(__VA_ARGS__)
+#else
+#define JHLog(...)
+#endif
+
+#endif
