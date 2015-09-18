@@ -63,11 +63,17 @@
     // 创建UIRefreshControl
     UIRefreshControl *control = [[UIRefreshControl alloc] init];
     
-   // 添加监听UIRefreshControl刷新控件
+   // 添加监听UIRefreshControl刷新控件, 用户有下拉拖拽时才会触发
     [control addTarget:self action:@selector(refreshStatus:) forControlEvents:UIControlEventValueChanged];
     
     // 添加刷新控件到tableView上
     [self.tableView addSubview:control];
+    
+    // 手动触发刷新事件, 只会显示刷新图标,但不执行下拉拖拽
+    [control beginRefreshing];
+    
+    // 立马加载刷新的数据,实现首次加载时初始化
+    [self refreshStatus:control];
 }
 
 /**
@@ -102,6 +108,7 @@
         NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
         [self.statuses insertObjects:newStatuses atIndexes:indexSet];
         
+        // 易错写法
 //        [self.statuses insertObject:<#(nonnull id)#> atIndex:<#(NSUInteger)#>];
 
         // 刷新表格
@@ -109,12 +116,73 @@
         
         // 结束刷新
         [control endRefreshing];
+        
+        // 显示最新微博数
+        [self showNewStatusesCount:(int)newStatuses.count];
    
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         JHLog(@"加载失败---%@",error);
         
         // 结束刷新
         [control endRefreshing];
+    }];
+}
+
+/**
+ *  显示最新微博数
+ *
+ *  @param count 最新的微博数
+ */
+- (void)showNewStatusesCount:(int)count
+{
+    // 创建显示最新微博数的lable
+    UILabel *lable = [[UILabel alloc] init];
+    
+    // 设置lable背景色
+    lable.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"timeline_new_status_background"]];
+    
+    // 设置lable的文本内容
+    if (count) { // 有最新的微博
+        lable.text = [NSString stringWithFormat:@"总共%d条最新微博",count];
+    } else { // 没有最新微博
+        lable.text = [NSString stringWithFormat:@"没有最新的微博,请稍后再试"];
+    }
+    
+    // 设置lable文本显示居中
+    lable.textAlignment = NSTextAlignmentCenter;
+    
+    // 设置lable文本字体大小和颜色
+    lable.font = [UIFont systemFontOfSize:17];
+    lable.textColor = [UIColor whiteColor];
+    
+    // 设置lable初始frame
+    lable.x = 0;
+    lable.width = [UIScreen mainScreen].bounds.size.width;
+    lable.height = 30;
+    lable.y = CGRectGetMaxY(self.navigationController.navigationBar.frame) - lable.height;
+    
+    // 添加lable至navagationBar
+    [self.navigationController.view insertSubview:lable belowSubview:self.navigationController.navigationBar];
+    
+    // 动画显示/隐藏 lable文本框
+    [UIView animateWithDuration:1.0 animations:^{
+        
+        // 更改transform
+        lable.transform = CGAffineTransformMakeTranslation(0, lable.height);
+        
+    } completion:^(BOOL finished) {
+        
+        // 设置动画隐藏lable, 并移除
+        [UIView animateWithDuration:1.0 delay:1.5 options:UIViewAnimationOptionCurveLinear animations:^{
+          
+            // 恢复transform
+            lable.transform = CGAffineTransformIdentity;
+            
+        } completion:^(BOOL finished) {
+            
+            // 移除lable文本框
+            [lable removeFromSuperview];
+        }];
     }];
 }
 
