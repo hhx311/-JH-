@@ -28,18 +28,6 @@
 
 @implementation JHHomeViewController
 
-///**
-// *  微博数组(存储微博字典,每个字典对应一条微博)
-// */
-//- (NSMutableArray *)statuses
-//{
-//    if (_statuses == nil) {
-//        NSMutableArray *statuses = [NSMutableArray array];
-//        self.statuses = statuses;
-//    }
-//    return _statuses;
-//}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -74,11 +62,6 @@
         
         // 将 字典数组 转成 模型数组 ,存储到statuses数组中
         self.statuses = [JHStatus objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
-        
-//        for (NSDictionary *dict in responseObject[@"statuses"]) {
-//            JHStatus *status = [JHStatus statusWithDict:dict];
-//            [self.statuses addObject:status];
-//        }
         
         // 刷新表格
         [self.tableView reloadData];
@@ -115,17 +98,12 @@
         // 设置名字
         JHUser *user = [JHUser objectWithKeyValues:responseObject];
         
-//        JHUser *user = [JHUser userWithDict:responseObject];
-//        NSString *name = responseObject[@"name"];
-        
         // 设置titleButton的标题(用户名)
         [titleButton setTitle:user.name forState:UIControlStateNormal];
         
         // 存储昵称到沙盒
         account.name = user.name;
         [JHAccountTool saveAccount:account];
-        
-//        JHLog(@"%@",responseObject);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         JHLog(@"请求失败---%@",error);
@@ -154,7 +132,6 @@
 
     // 添加titleButton到导航栏titleView
     self.navigationItem.titleView = titleButton;
-
 }
 
 /**
@@ -165,38 +142,38 @@
 - (void)titleButtonClick:(UIButton *)titleButton
 {
     JHDropdownMenu *menu = [JHDropdownMenu menu];
-    JHTitleMenuViewController *vc = [[JHTitleMenuViewController alloc] init];
-    vc.view.width = 150;
-    vc.view.height = 44 * 3;
-    menu.contentController = vc;
     
     menu.delegate = self;
     
-    [menu showFrom:titleButton];
+    JHTitleMenuViewController *vc = [[JHTitleMenuViewController alloc] init];
+    vc.view.width = 150;
+    vc.view.height = 44 * 3;
     
+    menu.contentController = vc;
+    
+    [menu showFrom:titleButton];
 }
 
-
+/**
+ *  监听左边按钮点击
+ */
 - (void)friendsearch:(UIBarButtonItem *)item
 {
     JHLog(@"friendsearch");
 }
 
+/**
+ *  监听右边按钮点击
+ */
 - (void)pop
 {
     JHLog(@"pop");
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.statuses.count;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

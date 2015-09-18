@@ -11,14 +11,4 @@
 
 @implementation JHStatus
 
-+ (instancetype)statusWithDict:(NSDictionary *)dict
-{
-    JHStatus *status = [[self alloc] init];
-    status.idstr = dict[@"idstr"];
-    status.text = dict[@"text"];
-    status.user = [JHUser userWithDict:dict[@"user"]];
-    
-    return status;
-}
-
 @end
