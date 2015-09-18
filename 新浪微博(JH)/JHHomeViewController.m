@@ -21,33 +21,61 @@
 
 @interface JHHomeViewController ()<JHDropdownMenuDelegate>
 /**
- *  微博数组(存储微博模型(JHStatus *),每个模型对应一条微博)
+ *  微博数组(存储着JHStatus微博模型,每个JHStatus对象对应一条微博)
  */
-@property (nonatomic, strong) NSArray *statuses;
+@property (nonatomic, strong) NSMutableArray *statuses;
 @end
 
 @implementation JHHomeViewController
+
+/**
+ *  微博数组(存储着JHStatus微博模型,每个JHStatus对象对应一条微博)
+ */
+- (NSMutableArray *)statuses
+{
+    if (_statuses == nil) {
+        self.statuses = [NSMutableArray array];
+    }
+    return _statuses;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     // 设置导航栏
-    [self setNav];
+    [self setupNav];
     
     // 设置用户信息(昵称)
-    [self setUserInfo];
-    
-    // 加载最新的微博数据
-    [self loadNewStatus];
+    [self setupUserInfo];
+        
+    // 加载数据及下拉刷新
+    [self setupRefresh];
 
     // 设置cell高度
     self.tableView.rowHeight = 150;
 }
 
 /**
- *  加载最新Weibo数据
+ *  加载数据及下拉刷新
  */
-- (void)loadNewStatus
+- (void)setupRefresh
+{
+    // 创建UIRefreshControl
+    UIRefreshControl *control = [[UIRefreshControl alloc] init];
+    
+   // 添加监听UIRefreshControl刷新控件
+    [control addTarget:self action:@selector(refreshStatus:) forControlEvents:UIControlEventValueChanged];
+    
+    // 添加刷新控件到tableView上
+    [self.tableView addSubview:control];
+}
+
+/**
+ *  监听UIRefreshControl刷新控件的pull(拉拽)事件
+ *
+ *  @param control 刷新控件(UIRefreshControl)
+ */
+- (void)refreshStatus:(UIRefreshControl *)control
 {
     // 请求管理者
     AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
@@ -56,25 +84,44 @@
     JHAccount *account = [JHAccountTool account];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"access_token"] = account.access_token;
+
+    // 取出最前面的微博（最新的微博，ID最大的微博）
+    JHStatus *firstStatus = [self.statuses firstObject];
+    if (firstStatus) { // 已加载过微博数据
+        // since_id:若指定此参数，则返回ID比since_id大的微博（即比since_id时间晚的微博），默认为0
+        params[@"since_id"] = firstStatus.idstr;
+    }
     
-    // 发送请求
     [mgr GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        // 将 字典数组 转成 模型数组 ,存储到statuses数组中
-        self.statuses = [JHStatus objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
+        // 将加载的字典数组转换成模型数组,用数组存储最新微博模型
+        NSArray *newStatuses = [JHStatus objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
         
+        // 将最新的微博数据，添加到总数组的最前面
+        NSRange range = NSMakeRange(0, newStatuses.count);
+        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
+        [self.statuses insertObjects:newStatuses atIndexes:indexSet];
+        
+//        [self.statuses insertObject:<#(nonnull id)#> atIndex:<#(NSUInteger)#>];
+
         // 刷新表格
         [self.tableView reloadData];
         
+        // 结束刷新
+        [control endRefreshing];
+   
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        JHLog(@"请求失败---%@",error);
+        JHLog(@"加载失败---%@",error);
+        
+        // 结束刷新
+        [control endRefreshing];
     }];
 }
 
 /**
  *  设置用户信息(昵称)
  */
-- (void)setUserInfo
+- (void)setupUserInfo
 {
     // https://api.weibo.com/2/users/show.json
     // access_token	false	string	采用OAuth授权方式为必填参数，其他授权方式不需要此参数，OAuth授权后获得。
@@ -113,7 +160,7 @@
 /**
  *  设置导航栏
  */
-- (void)setNav
+- (void)setupNav
 {
     // 设置首页的左边按钮
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(friendsearch:) image:@"navigationbar_friendsearch" highlightedImage:@"navigationbar_friendsearch_highlighted"];
