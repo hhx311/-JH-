@@ -21,24 +21,24 @@
 
 @interface JHHomeViewController ()<JHDropdownMenuDelegate>
 /**
- *  微博数组(存储微博字典,每个字典对应一条微博)
+ *  微博数组(存储微博模型(JHStatus *),每个模型对应一条微博)
  */
-@property (nonatomic, strong) NSMutableArray *statuses;
+@property (nonatomic, strong) NSArray *statuses;
 @end
 
 @implementation JHHomeViewController
 
-/**
- *  微博数组(存储微博字典,每个字典对应一条微博)
- */
-- (NSMutableArray *)statuses
-{
-    if (_statuses == nil) {
-        NSMutableArray *statuses = [NSMutableArray array];
-        self.statuses = statuses;
-    }
-    return _statuses;
-}
+///**
+// *  微博数组(存储微博字典,每个字典对应一条微博)
+// */
+//- (NSMutableArray *)statuses
+//{
+//    if (_statuses == nil) {
+//        NSMutableArray *statuses = [NSMutableArray array];
+//        self.statuses = statuses;
+//    }
+//    return _statuses;
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -72,11 +72,13 @@
     // 发送请求
     [mgr GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        // 取出微博字典转成模型存储到statuses数组中
-        for (NSDictionary *dict in responseObject[@"statuses"]) {
-            JHStatus *status = [JHStatus statusWithDict:dict];
-            [self.statuses addObject:status];
-        }
+        // 将 字典数组 转成 模型数组 ,存储到statuses数组中
+        self.statuses = [JHStatus objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
+        
+//        for (NSDictionary *dict in responseObject[@"statuses"]) {
+//            JHStatus *status = [JHStatus statusWithDict:dict];
+//            [self.statuses addObject:status];
+//        }
         
         // 刷新表格
         [self.tableView reloadData];
@@ -106,10 +108,14 @@
     
     // 3.发送请求
     [mgr GET:@"https://api.weibo.com/2/users/show.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
         // 标题按钮/用户名
         UIButton *titleButton = (UIButton *)self.navigationItem.titleView;
         
-        JHUser *user = [JHUser userWithDict:responseObject];
+        // 设置名字
+        JHUser *user = [JHUser objectWithKeyValues:responseObject];
+        
+//        JHUser *user = [JHUser userWithDict:responseObject];
 //        NSString *name = responseObject[@"name"];
         
         // 设置titleButton的标题(用户名)
