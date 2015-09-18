@@ -10,6 +10,10 @@
 #import "JHHomeViewController.h"
 #import "JHDropdownMenu.h"
 #import "JHTitleMenuViewController.h"
+#import "AFNetworking.h"
+#import "JHAccountTool.h"
+#import "JHTitleButton.h"
+
 
 @interface JHHomeViewController ()<JHDropdownMenuDelegate>
 
@@ -19,34 +23,84 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // 设置导航栏
+    [self setNav];
+    
+    // 设置用户信息(昵称)
+    [self setUserInfo];
+}
 
+/**
+ *  设置用户信息(昵称)
+ */
+- (void)setUserInfo
+{
+    // https://api.weibo.com/2/users/show.json
+    // access_token	false	string	采用OAuth授权方式为必填参数，其他授权方式不需要此参数，OAuth授权后获得。
+    // uid	false	int64	需要查询的用户ID。
+    
+    // 1.请求管理者
+    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
+    
+    // 2.拼接请求参数
+    JHAccount *account = [JHAccountTool account];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"access_token"] = account.access_token;
+    params[@"uid"] = account.uid;
+    
+    // 3.发送请求
+    [mgr GET:@"https://api.weibo.com/2/users/show.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // 标题按钮/用户名
+        UIButton *titleButton = (UIButton *)self.navigationItem.titleView;
+        NSString *name = responseObject[@"name"];
+//        NSString *name = @"的啥";
+
+        
+        // 设置titleButton的标题(用户名)
+        [titleButton setTitle:name forState:UIControlStateNormal];
+        
+        // 存储昵称到沙盒
+        account.name = name;
+        [JHAccountTool saveAccount:account];
+        
+//        JHLog(@"%@",responseObject);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        JHLog(@"请求失败---%@",error);
+    }];
+}
+
+/**
+ *  设置导航栏
+ */
+- (void)setNav
+{
     // 设置首页的左边按钮
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(friendsearch:) image:@"navigationbar_friendsearch" highlightedImage:@"navigationbar_friendsearch_highlighted"];
     // 设置首页的右边按钮
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(pop) image:@"navigationbar_pop" highlightedImage:@"navigationbar_pop_highlighted"];
     
     // 设置首页中间标题
-    UIButton *titleButton = [[UIButton alloc] init];
-    // 设置尺寸
-    titleButton.width = 160;
-    titleButton.height = 30;
-    // 设置图片
-    [titleButton setImage:[UIImage imageNamed:@"navigationbar_arrow_down"] forState:UIControlStateNormal];
-    [titleButton setImage:[UIImage imageNamed:@"navigationbar_arrow_up"] forState:UIControlStateSelected];
+    JHTitleButton *titleButton = [[JHTitleButton alloc] init];
     // 设置文字
-    [titleButton setTitle:@"首页" forState:UIControlStateNormal];
-    titleButton.titleLabel.font = [UIFont boldSystemFontOfSize:17];
-    [titleButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    // 设置文字和图标的位置
-    titleButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 50);
-    titleButton.imageEdgeInsets = UIEdgeInsetsMake(0, 50, 0, 0);
-    
-    self.navigationItem.titleView = titleButton;
-    
+    NSString *name = [JHAccountTool account].name;
+
+    [titleButton setTitle:name?name:@"首页" forState:UIControlStateNormal];
+
     // 添加按钮点击监听
     [titleButton addTarget:self action:@selector(titleButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+
+    // 添加titleButton到导航栏titleView
+    self.navigationItem.titleView = titleButton;
+
 }
 
+/**
+ *  监听标题按钮点击
+ *
+ *  @param titleButton 标题按钮
+ */
 - (void)titleButtonClick:(UIButton *)titleButton
 {
     JHDropdownMenu *menu = [JHDropdownMenu menu];
@@ -55,21 +109,12 @@
     vc.view.height = 44 * 3;
     menu.contentController = vc;
     
-    /* 测试用
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeContactAdd];
-    UIButton *btn = [[UIButton alloc] init];
-    btn.width = 130;
-    btn.height = 130;
-    btn.backgroundColor = [UIColor redColor];
-    [btn setBackgroundImage:[UIImage imageNamed:@"album"] forState:UIControlStateNormal];
-    menu.content = btn;
-     */
-    
     menu.delegate = self;
     
     [menu showFrom:titleButton];
     
 }
+
 
 - (void)friendsearch:(UIBarButtonItem *)item
 {

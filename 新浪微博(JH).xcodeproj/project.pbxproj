@@ -21,6 +21,7 @@
 		9641427D1BA1308400E65534 /* JHMessageCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9641427C1BA1308400E65534 /* JHMessageCenterViewController.m */; };
 		964142801BA1309100E65534 /* JHDiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9641427F1BA1309100E65534 /* JHDiscoverViewController.m */; };
 		964142831BA130A300E65534 /* JHProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964142821BA130A300E65534 /* JHProfileViewController.m */; };
+		964685A41BABC1EE00559FDF /* JHTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 964685A31BABC1EE00559FDF /* JHTitleButton.m */; settings = {ASSET_TAGS = (); }; };
 		964F49201BA6B4A9005F1710 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 964F491F1BA6B4A9005F1710 /* Launch Screen.xib */; };
 		965FC1D61BA66B9A0089D26B /* JHNewFeatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 965FC1D51BA66B9A0089D26B /* JHNewFeatureViewController.m */; };
 		966F1CD81BA6A5FC00F7FF1A /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 966F1CC01BA6A5FC00F7FF1A /* AFHTTPRequestOperation.m */; };
@@ -87,6 +88,8 @@
 		9641427F1BA1309100E65534 /* JHDiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHDiscoverViewController.m; sourceTree = "<group>"; };
 		964142811BA130A300E65534 /* JHProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHProfileViewController.h; sourceTree = "<group>"; };
 		964142821BA130A300E65534 /* JHProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHProfileViewController.m; sourceTree = "<group>"; };
+		964685A21BABC1EE00559FDF /* JHTitleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHTitleButton.h; sourceTree = "<group>"; };
+		964685A31BABC1EE00559FDF /* JHTitleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHTitleButton.m; sourceTree = "<group>"; };
 		964F491F1BA6B4A9005F1710 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		965FC1D41BA66B9A0089D26B /* JHNewFeatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHNewFeatureViewController.h; sourceTree = "<group>"; };
 		965FC1D51BA66B9A0089D26B /* JHNewFeatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHNewFeatureViewController.m; sourceTree = "<group>"; };
@@ -192,8 +195,8 @@
 		963881941BA52D420066EE62 /* OAuth(授权) */ = {
 			isa = PBXGroup;
 			children = (
-				966F1CE51BA6A61A00F7FF1A /* Model */,
 				966F1CE41BA6A61300F7FF1A /* Tool */,
+				966F1CE51BA6A61A00F7FF1A /* Model */,
 				963881951BA52D6C0066EE62 /* Controller */,
 			);
 			name = "OAuth(授权)";
@@ -304,9 +307,9 @@
 		964142841BA1381E00E65534 /* Home(首页) */ = {
 			isa = PBXGroup;
 			children = (
+				964142861BA1383900E65534 /* Controller */,
 				964142871BA1384300E65534 /* Model */,
 				964142851BA1382F00E65534 /* View */,
-				964142861BA1383900E65534 /* Controller */,
 			);
 			name = "Home(首页)";
 			sourceTree = "<group>";
@@ -316,6 +319,8 @@
 			children = (
 				962D4C001BA3012800C78D0A /* JHTitleMenuViewController.h */,
 				962D4C011BA3012800C78D0A /* JHTitleMenuViewController.m */,
+				964685A21BABC1EE00559FDF /* JHTitleButton.h */,
+				964685A31BABC1EE00559FDF /* JHTitleButton.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -596,7 +601,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = JH;
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = MyIOS;
 				TargetAttributes = {
 					9641424A1BA1077900E65534 = {
@@ -679,6 +684,7 @@
 				966F1CEB1BA6A69800F7FF1A /* JHAccount.m in Sources */,
 				966F1CDF1BA6A5FC00F7FF1A /* AFURLResponseSerialization.m in Sources */,
 				965FC1D61BA66B9A0089D26B /* JHNewFeatureViewController.m in Sources */,
+				964685A41BABC1EE00559FDF /* JHTitleButton.m in Sources */,
 				962D4C051BA3042D00C78D0A /* JHTabBar.m in Sources */,
 				9641427A1BA1306900E65534 /* JHHomeViewController.m in Sources */,
 				968D5CDD1BA1D9F000A48B0B /* JHNavigationController.m in Sources */,
@@ -729,6 +735,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -744,7 +751,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -781,7 +788,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -797,8 +804,9 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "新浪微博(JH)/public.pch";
 				INFOPLIST_FILE = "新浪微博(JH)/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "JasonHuang.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -813,8 +821,9 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "新浪微博(JH)/public.pch";
 				INFOPLIST_FILE = "新浪微博(JH)/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "JasonHuang.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -834,6 +843,7 @@
 				);
 				INFOPLIST_FILE = "新浪微博(JH)Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "JasonHuang.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/新浪微博(JH).app/新浪微博(JH)";
 			};
@@ -849,6 +859,7 @@
 				);
 				INFOPLIST_FILE = "新浪微博(JH)Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "JasonHuang.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/新浪微博(JH).app/新浪微博(JH)";
 			};
