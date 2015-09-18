@@ -13,10 +13,14 @@
 #import "AFNetworking.h"
 #import "JHAccountTool.h"
 #import "JHTitleButton.h"
+#import "UIImageView+WebCache.h"
 
 
 @interface JHHomeViewController ()<JHDropdownMenuDelegate>
-
+/**
+ *  微博数组(存储微博字典,每个字典对应一条微博)
+ */
+@property (nonatomic, strong) NSArray *statuses;
 @end
 
 @implementation JHHomeViewController
@@ -29,6 +33,39 @@
     
     // 设置用户信息(昵称)
     [self setUserInfo];
+    
+    // 加载最新的微博数据
+    [self loadNewStatus];
+
+    // 设置cell高度
+    self.tableView.rowHeight = 150;
+}
+
+/**
+ *  加载最新Weibo数据
+ */
+- (void)loadNewStatus
+{
+    // 请求管理者
+    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
+    
+    // 拼接请求参数
+    JHAccount *account = [JHAccountTool account];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"access_token"] = account.access_token;
+    
+    // 发送请求
+    [mgr GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        // 取出微博字典存储到statuses数组中
+        self.statuses = responseObject[@"statuses"];
+        
+        // 刷新表格
+        [self.tableView reloadData];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        JHLog(@"请求失败---%@",error);
+    }];
 }
 
 /**
@@ -133,18 +170,37 @@
 
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    return 0;
+    return self.statuses.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *ID = [NSString stringWithFormat:@""];
+    NSString *ID = [NSString stringWithFormat:@"status"];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
     }
+    
+    // 取出这行对应的微博字典
+    NSDictionary *status = self.statuses[indexPath.row];
+    
+    // 设置这条微博的用户昵称
+    NSDictionary *user = status[@"user"];
+    cell.textLabel.text = user[@"name"];
+    
+    // 设置微博正文内容
+    cell.detailTextLabel.text = status[@"text"];
+    // 设置换行
+    cell.detailTextLabel.numberOfLines = 0;
+    
+    // 设置这条微博的用户头像
+    // 图片url地址
+    NSURL *url = [NSURL URLWithString:user[@"profile_image_url"]];
+    // 占位图
+    UIImage *placeholderImage = [UIImage imageNamed:@"avatar_default"];
+    [cell.imageView sd_setImageWithURL:url placeholderImage:placeholderImage];
+    
     return cell;
 }
 
@@ -166,48 +222,4 @@
     UIButton *btn = (UIButton *)self.navigationItem.titleView;
     btn.selected = YES;
 }
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end
