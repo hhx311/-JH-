@@ -14,16 +14,31 @@
 #import "JHAccountTool.h"
 #import "JHTitleButton.h"
 #import "UIImageView+WebCache.h"
+#import "JHUser.h"
+#import "JHStatus.h"
+#import "MJExtension.h"
 
 
 @interface JHHomeViewController ()<JHDropdownMenuDelegate>
 /**
  *  微博数组(存储微博字典,每个字典对应一条微博)
  */
-@property (nonatomic, strong) NSArray *statuses;
+@property (nonatomic, strong) NSMutableArray *statuses;
 @end
 
 @implementation JHHomeViewController
+
+/**
+ *  微博数组(存储微博字典,每个字典对应一条微博)
+ */
+- (NSMutableArray *)statuses
+{
+    if (_statuses == nil) {
+        NSMutableArray *statuses = [NSMutableArray array];
+        self.statuses = statuses;
+    }
+    return _statuses;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -57,8 +72,11 @@
     // 发送请求
     [mgr GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        // 取出微博字典存储到statuses数组中
-        self.statuses = responseObject[@"statuses"];
+        // 取出微博字典转成模型存储到statuses数组中
+        for (NSDictionary *dict in responseObject[@"statuses"]) {
+            JHStatus *status = [JHStatus statusWithDict:dict];
+            [self.statuses addObject:status];
+        }
         
         // 刷新表格
         [self.tableView reloadData];
@@ -90,15 +108,15 @@
     [mgr GET:@"https://api.weibo.com/2/users/show.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 标题按钮/用户名
         UIButton *titleButton = (UIButton *)self.navigationItem.titleView;
-        NSString *name = responseObject[@"name"];
-//        NSString *name = @"的啥";
-
+        
+        JHUser *user = [JHUser userWithDict:responseObject];
+//        NSString *name = responseObject[@"name"];
         
         // 设置titleButton的标题(用户名)
-        [titleButton setTitle:name forState:UIControlStateNormal];
+        [titleButton setTitle:user.name forState:UIControlStateNormal];
         
         // 存储昵称到沙盒
-        account.name = name;
+        account.name = user.name;
         [JHAccountTool saveAccount:account];
         
 //        JHLog(@"%@",responseObject);
@@ -183,20 +201,20 @@
     }
     
     // 取出这行对应的微博字典
-    NSDictionary *status = self.statuses[indexPath.row];
+    JHStatus *status = self.statuses[indexPath.row];
     
     // 设置这条微博的用户昵称
-    NSDictionary *user = status[@"user"];
-    cell.textLabel.text = user[@"name"];
+    JHUser *user = status.user;
+    cell.textLabel.text = user.name;
     
     // 设置微博正文内容
-    cell.detailTextLabel.text = status[@"text"];
+    cell.detailTextLabel.text = status.text;
     // 设置换行
     cell.detailTextLabel.numberOfLines = 0;
     
     // 设置这条微博的用户头像
     // 图片url地址
-    NSURL *url = [NSURL URLWithString:user[@"profile_image_url"]];
+    NSURL *url = [NSURL URLWithString:user.profile_image_url];
     // 占位图
     UIImage *placeholderImage = [UIImage imageNamed:@"avatar_default"];
     [cell.imageView sd_setImageWithURL:url placeholderImage:placeholderImage];
