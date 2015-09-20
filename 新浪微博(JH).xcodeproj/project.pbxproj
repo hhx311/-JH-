@@ -74,6 +74,8 @@
 		968D5CDD1BA1D9F000A48B0B /* JHNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 968D5CDC1BA1D9F000A48B0B /* JHNavigationController.m */; };
 		968D5CE41BA1E75B00A48B0B /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 968D5CE31BA1E75B00A48B0B /* UIView+Extension.m */; };
 		968D5CE71BA24FA200A48B0B /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 968D5CE61BA24FA200A48B0B /* UIBarButtonItem+Extension.m */; };
+		96DBD4601BACFD3B00251670 /* JHLoadMoreFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DBD45F1BACFD3B00251670 /* JHLoadMoreFootView.m */; settings = {ASSET_TAGS = (); }; };
+		96DBD4621BACFD5300251670 /* JHLoadMoreFootView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96DBD4611BACFD5300251670 /* JHLoadMoreFootView.xib */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -223,6 +225,9 @@
 		968D5CE31BA1E75B00A48B0B /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		968D5CE51BA24FA200A48B0B /* UIBarButtonItem+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Extension.h"; sourceTree = "<group>"; };
 		968D5CE61BA24FA200A48B0B /* UIBarButtonItem+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Extension.m"; sourceTree = "<group>"; };
+		96DBD45E1BACFD3B00251670 /* JHLoadMoreFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHLoadMoreFootView.h; sourceTree = "<group>"; };
+		96DBD45F1BACFD3B00251670 /* JHLoadMoreFootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHLoadMoreFootView.m; sourceTree = "<group>"; };
+		96DBD4611BACFD5300251670 /* JHLoadMoreFootView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JHLoadMoreFootView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -410,6 +415,9 @@
 				962D4C011BA3012800C78D0A /* JHTitleMenuViewController.m */,
 				964685A21BABC1EE00559FDF /* JHTitleButton.h */,
 				964685A31BABC1EE00559FDF /* JHTitleButton.m */,
+				96DBD45E1BACFD3B00251670 /* JHLoadMoreFootView.h */,
+				96DBD45F1BACFD3B00251670 /* JHLoadMoreFootView.m */,
+				96DBD4611BACFD5300251670 /* JHLoadMoreFootView.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -804,6 +812,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				968D5CDA1BA1644400A48B0B /* JHTest1ViewController.xib in Resources */,
+				96DBD4621BACFD5300251670 /* JHLoadMoreFootView.xib in Resources */,
 				964F49201BA6B4A9005F1710 /* Launch Screen.xib in Resources */,
 				9641425C1BA1077900E65534 /* Images.xcassets in Resources */,
 				966F1CE21BA6A5FC00F7FF1A /* MBProgressHUD.bundle in Resources */,
@@ -839,6 +848,7 @@
 				966F1CE11BA6A5FC00F7FF1A /* MBProgressHUD+MJ.m in Sources */,
 				966F1CD81BA6A5FC00F7FF1A /* AFHTTPRequestOperation.m in Sources */,
 				964686551BAC1E6400559FDF /* NSData+ImageContentType.m in Sources */,
+				96DBD4601BACFD3B00251670 /* JHLoadMoreFootView.m in Sources */,
 				964686271BAC19CF00559FDF /* MJArgument.m in Sources */,
 				964142831BA130A300E65534 /* JHProfileViewController.m in Sources */,
 				964142541BA1077900E65534 /* AppDelegate.m in Sources */,

@@ -32,6 +32,15 @@
     
     // 3.显示窗口
     [self.window makeKeyAndVisible];
+    
+    // 4.判断当前iOS系统版本是否为iOS8或更高版本,设置弹框提示用户"是否允许接收该应用通知"
+    float sysVersion=[[UIDevice currentDevice]systemVersion].floatValue;
+    if (sysVersion>=8.0) {
+        UIUserNotificationType type=UIUserNotificationTypeBadge | UIUserNotificationTypeAlert | UIUserNotificationTypeSound;
+        UIUserNotificationSettings *setting=[UIUserNotificationSettings settingsForTypes:type categories:nil];
+        [[UIApplication sharedApplication]registerUserNotificationSettings:setting];
+    }
+    
     return YES;
 }
 

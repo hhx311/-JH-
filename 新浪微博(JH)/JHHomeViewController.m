@@ -7,6 +7,15 @@
 //  Copyright (c) 2015年 MyIOS. All rights reserved.
 //
 
+// 请求 微博未读数
+#define JHRequest_statuses_unread_count @"https://rm.api.weibo.com/2/remind/unread_count.json"
+
+// 请求 好友微博时间线
+#define JHRequest_statuses_friends_timeline @"https://api.weibo.com/2/statuses/friends_timeline.json"
+
+// 请求 用户信息
+#define JHRequest_users_show @"https://api.weibo.com/2/users/show.json"
+
 #import "JHHomeViewController.h"
 #import "JHDropdownMenu.h"
 #import "JHTitleMenuViewController.h"
@@ -17,6 +26,7 @@
 #import "JHUser.h"
 #import "JHStatus.h"
 #import "MJExtension.h"
+#import "JHLoadMoreFootView.h"
 
 
 @interface JHHomeViewController ()<JHDropdownMenuDelegate>
@@ -48,23 +58,77 @@
     // 设置用户信息(昵称)
     [self setupUserInfo];
         
-    // 加载数据及下拉刷新
-    [self setupRefresh];
+    // 下拉刷新
+    [self setupDownRefresh];
+    
+    // 上拉刷新
+    [self setupUpRefresh];
+    
+    // 获取未读数
+    // 创建timer定时器
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(setupUnreadCount) userInfo:nil repeats:YES];
+    // 不管主线程是否正在其他事件,主线程也会抽时间处理一下timer
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 
     // 设置cell高度
-    self.tableView.rowHeight = 150;
+    self.tableView.rowHeight = 100;
 }
 
 /**
- *  加载数据及下拉刷新
+ *  设置微博未读数
  */
-- (void)setupRefresh
+- (void)setupUnreadCount
+{
+    // 请求管理者
+    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
+    
+    // 拼接请求参数
+    JHAccount *account = [JHAccountTool account];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"access_token"] = account.access_token;
+//    params[@"uid"] = account.uid;
+    
+    // 发送请求
+    [mgr GET:JHRequest_statuses_unread_count parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        // 微博未读数
+        NSString *status = [responseObject[@"status"] description];
+        
+        if ([status isEqualToString:@"0"]) { // 没有未读微博,则清空未读数字
+            self.tabBarItem.badgeValue = nil;
+            [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+        } else {
+            self.tabBarItem.badgeValue = status;
+            [UIApplication sharedApplication].applicationIconBadgeNumber = status.intValue;
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        JHLog(@"请求失败,稍后再试---%@",error);
+    }];
+}
+
+/**
+ *  上拉刷新
+ */
+- (void)setupUpRefresh
+{
+    JHLoadMoreFootView *footView = [JHLoadMoreFootView footView];
+    
+    footView.hidden = YES;
+    
+    self.tableView.tableFooterView = footView;
+}
+
+/**
+ *  下拉刷新
+ */
+- (void)setupDownRefresh
 {
     // 创建UIRefreshControl
     UIRefreshControl *control = [[UIRefreshControl alloc] init];
     
    // 添加监听UIRefreshControl刷新控件, 用户有下拉拖拽时才会触发
-    [control addTarget:self action:@selector(refreshStatus:) forControlEvents:UIControlEventValueChanged];
+    [control addTarget:self action:@selector(refreshNewStatus:) forControlEvents:UIControlEventValueChanged];
     
     // 添加刷新控件到tableView上
     [self.tableView addSubview:control];
@@ -73,15 +137,15 @@
     [control beginRefreshing];
     
     // 立马加载刷新的数据,实现首次加载时初始化
-    [self refreshStatus:control];
+    [self refreshNewStatus:control];
 }
 
 /**
- *  监听UIRefreshControl刷新控件的pull(拉拽)事件
+ *  监听UIRefreshControl刷新控件的pull(拉拽)事件,加载最新微博
  *
  *  @param control 刷新控件(UIRefreshControl)
  */
-- (void)refreshStatus:(UIRefreshControl *)control
+- (void)refreshNewStatus:(UIRefreshControl *)control
 {
     // 请求管理者
     AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
@@ -98,7 +162,7 @@
         params[@"since_id"] = firstStatus.idstr;
     }
     
-    [mgr GET:@"https://api.weibo.com/2/statuses/friends_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [mgr GET:JHRequest_statuses_friends_timeline parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         // 将加载的字典数组转换成模型数组,用数组存储最新微博模型
         NSArray *newStatuses = [JHStatus objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
@@ -121,7 +185,7 @@
         [self showNewStatusesCount:(int)newStatuses.count];
    
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        JHLog(@"加载失败---%@",error);
+        JHLog(@"请求失败,稍后再试---%@",error);
         
         // 结束刷新
         [control endRefreshing];
@@ -135,6 +199,10 @@
  */
 - (void)showNewStatusesCount:(int)count
 {
+    // 清空未读微博数字
+    self.tabBarItem.badgeValue =nil;
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    
     // 创建显示最新微博数的lable
     UILabel *lable = [[UILabel alloc] init];
     
@@ -173,8 +241,8 @@
     } completion:^(BOOL finished) {
         
         // 设置动画隐藏lable, 并移除
-        [UIView animateWithDuration:1.0 delay:1.5 options:UIViewAnimationOptionCurveLinear animations:^{
-          
+        [UIView animateWithDuration:1.0 delay:2.0 options:UIViewAnimationOptionCurveLinear animations:^{
+            
             // 恢复transform
             lable.transform = CGAffineTransformIdentity;
             
@@ -183,6 +251,52 @@
             // 移除lable文本框
             [lable removeFromSuperview];
         }];
+    }];
+}
+
+/**
+ *  上拉加载更多历史微博
+ */
+- (void)loadMoreStatuses
+{
+    // 请求管理者
+    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
+    
+    // 拼接请求参数
+    JHAccount *account = [JHAccountTool account];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"access_token"] = account.access_token;
+    
+    // 取出微博数组中最后一条微博
+    JHStatus *lastStatus = [self.statuses lastObject];
+    
+    if (lastStatus) {
+        long long max_id = lastStatus.idstr.longLongValue - 1;
+        
+        // max_id:若指定此参数，则返回ID小于或等于max_id的微博，默认为0。
+        params[@"max_id"] = @(max_id);
+    }
+    
+    // 发送请求数据
+    [mgr GET:JHRequest_statuses_friends_timeline parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        // 加载的历史微博数据
+        NSArray *newStatuses = [JHStatus objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
+        
+        // 将加载的数据存储到statuses数组中
+        [self.statuses addObjectsFromArray:newStatuses];
+        
+        // 刷新表格
+        [self.tableView reloadData];
+        
+        // 隐藏footView
+        self.tableView.tableFooterView.hidden = YES;
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        JHLog(@"请求失败,稍后再试---%@",error);
+        
+        // 隐藏footView
+        self.tableView.tableFooterView.hidden = YES;
     }];
 }
 
@@ -205,7 +319,7 @@
     params[@"uid"] = account.uid;
     
     // 3.发送请求
-    [mgr GET:@"https://api.weibo.com/2/users/show.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [mgr GET:JHRequest_users_show parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         // 标题按钮/用户名
         UIButton *titleButton = (UIButton *)self.navigationItem.titleView;
@@ -318,6 +432,29 @@
     [cell.imageView sd_setImageWithURL:url placeholderImage:placeholderImage];
     
     return cell;
+}
+
+/**
+ *  拖拽tableview时调用此方法
+ */
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    // 如果tableview没有数据,则直接返回
+    if (!self.statuses.count) return;
+    
+    // tableview拖拽的y值
+    CGFloat offSetY = scrollView.contentOffset.y;
+    
+    // 拖拽到footView刚好出现的临界offSet的y值
+    CGFloat judgeOffSetY = scrollView.contentSize.height + scrollView.contentInset.bottom - scrollView.height;
+    
+    // 如果拖拽到footView刚好出现在视野,设置footView的hidden为NO
+    if (offSetY >= judgeOffSetY) {
+        self.tableView.tableFooterView.hidden = NO;
+        
+        // 加载更多历史微博
+        [self loadMoreStatuses];
+    }
 }
 
 #pragma mark - JHDropdownMenuDelegate代理方法
