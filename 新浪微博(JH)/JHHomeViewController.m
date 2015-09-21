@@ -8,7 +8,7 @@
 //
 
 // 请求 微博未读数
-#define JHRequest_statuses_unread_count @"https://rm.api.weibo.com/2/remind/unread_count.json"
+#define JHRequest_remind_unread_count @"https://api.weibo.com/2/remind/unread_count.json"
 
 // 请求 好友微博时间线
 #define JHRequest_statuses_friends_timeline @"https://api.weibo.com/2/statuses/friends_timeline.json"
@@ -27,6 +27,7 @@
 #import "JHStatus.h"
 #import "MJExtension.h"
 #import "JHLoadMoreFootView.h"
+#import "JHStatusCell.h"
 
 
 @interface JHHomeViewController ()<JHDropdownMenuDelegate>
@@ -71,7 +72,7 @@
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 
     // 设置cell高度
-    self.tableView.rowHeight = 100;
+    self.tableView.rowHeight = 150;
 }
 
 /**
@@ -89,7 +90,7 @@
 //    params[@"uid"] = account.uid;
     
     // 发送请求
-    [mgr GET:JHRequest_statuses_unread_count parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [mgr GET:JHRequest_remind_unread_count parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         // 微博未读数
         NSString *status = [responseObject[@"status"] description];
@@ -406,11 +407,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *ID = [NSString stringWithFormat:@"status"];
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-    }
+    JHStatusCell *cell = [JHStatusCell cellWithTableView:tableView];
+//    NSString *ID = [NSString stringWithFormat:@"status"];
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+//    if (!cell) {
+//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+//    }
     
     // 取出这行对应的微博字典
     JHStatus *status = self.statuses[indexPath.row];
@@ -430,7 +432,7 @@
     // 占位图
     UIImage *placeholderImage = [UIImage imageNamed:@"avatar_default"];
     [cell.imageView sd_setImageWithURL:url placeholderImage:placeholderImage];
-    
+    JHLog(@"%@",cell);
     return cell;
 }
 

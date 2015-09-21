@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9602BBB01BA45FAF002FBDF8 /* JHPlusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9602BBAF1BA45FAF002FBDF8 /* JHPlusViewController.m */; };
+		962B26F51BAF135D00731381 /* JHStatusFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 962B26F41BAF135D00731381 /* JHStatusFrame.m */; settings = {ASSET_TAGS = (); }; };
+		962B26F81BAF95C300731381 /* JHStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 962B26F71BAF95C300731381 /* JHStatusCell.m */; settings = {ASSET_TAGS = (); }; };
 		962D4BFF1BA272CC00C78D0A /* JHSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 962D4BFE1BA272CC00C78D0A /* JHSearchBar.m */; };
 		962D4C021BA3012800C78D0A /* JHTitleMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 962D4C011BA3012800C78D0A /* JHTitleMenuViewController.m */; };
 		962D4C051BA3042D00C78D0A /* JHTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 962D4C041BA3042D00C78D0A /* JHTabBar.m */; };
@@ -91,6 +93,10 @@
 /* Begin PBXFileReference section */
 		9602BBAE1BA45FAF002FBDF8 /* JHPlusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHPlusViewController.h; sourceTree = "<group>"; };
 		9602BBAF1BA45FAF002FBDF8 /* JHPlusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHPlusViewController.m; sourceTree = "<group>"; };
+		962B26F31BAF135D00731381 /* JHStatusFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHStatusFrame.h; sourceTree = "<group>"; };
+		962B26F41BAF135D00731381 /* JHStatusFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHStatusFrame.m; sourceTree = "<group>"; };
+		962B26F61BAF95C300731381 /* JHStatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHStatusCell.h; sourceTree = "<group>"; };
+		962B26F71BAF95C300731381 /* JHStatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHStatusCell.m; sourceTree = "<group>"; };
 		962D4BFD1BA272CC00C78D0A /* JHSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHSearchBar.h; sourceTree = "<group>"; };
 		962D4BFE1BA272CC00C78D0A /* JHSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHSearchBar.m; sourceTree = "<group>"; };
 		962D4C001BA3012800C78D0A /* JHTitleMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHTitleMenuViewController.h; sourceTree = "<group>"; };
@@ -418,6 +424,8 @@
 				96DBD45E1BACFD3B00251670 /* JHLoadMoreFootView.h */,
 				96DBD45F1BACFD3B00251670 /* JHLoadMoreFootView.m */,
 				96DBD4611BACFD5300251670 /* JHLoadMoreFootView.xib */,
+				962B26F61BAF95C300731381 /* JHStatusCell.h */,
+				962B26F71BAF95C300731381 /* JHStatusCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -438,6 +446,8 @@
 				964685D81BAC03AD00559FDF /* JHUser.m */,
 				964685DA1BAC03BC00559FDF /* JHStatus.h */,
 				964685DB1BAC03BC00559FDF /* JHStatus.m */,
+				962B26F31BAF135D00731381 /* JHStatusFrame.h */,
+				962B26F41BAF135D00731381 /* JHStatusFrame.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -853,6 +863,7 @@
 				964142831BA130A300E65534 /* JHProfileViewController.m in Sources */,
 				964142541BA1077900E65534 /* AppDelegate.m in Sources */,
 				964686611BAC1E6400559FDF /* UIImageView+HighlightedWebCache.m in Sources */,
+				962B26F81BAF95C300731381 /* JHStatusCell.m in Sources */,
 				966F1CE31BA6A5FC00F7FF1A /* MBProgressHUD.m in Sources */,
 				962D4C081BA3C45000C78D0A /* JHDropdownMenu.m in Sources */,
 				968D5CD51BA15F6200A48B0B /* JHTabBarViewController.m in Sources */,
@@ -876,6 +887,7 @@
 				966F1CEB1BA6A69800F7FF1A /* JHAccount.m in Sources */,
 				966F1CDF1BA6A5FC00F7FF1A /* AFURLResponseSerialization.m in Sources */,
 				965FC1D61BA66B9A0089D26B /* JHNewFeatureViewController.m in Sources */,
+				962B26F51BAF135D00731381 /* JHStatusFrame.m in Sources */,
 				964686631BAC1E6400559FDF /* UIView+WebCacheOperation.m in Sources */,
 				964686561BAC1E6400559FDF /* SDImageCache.m in Sources */,
 				9646865B1BAC1E6400559FDF /* SDWebImageManager.m in Sources */,

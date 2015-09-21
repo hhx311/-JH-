@@ -30,7 +30,7 @@
         [plusButton setBackgroundImage:[UIImage imageNamed:@"tabbar_compose_button"] forState:UIControlStateNormal];
         [plusButton setBackgroundImage:[UIImage imageNamed:@"tabbar_compose_button_highlighted"] forState:UIControlStateHighlighted];
         [plusButton setImage:[UIImage imageNamed:@"tabbar_compose_icon_add"] forState:UIControlStateNormal];
-        [plusButton setImage:[UIImage imageNamed:@"tabbar_compose_icon_add_highlighted"] forState:UIControlStateSelected];
+        [plusButton setImage:[UIImage imageNamed:@"compose_guide_icon_close_default"] forState:UIControlStateSelected];
         
         // 设置按钮尺寸
         plusButton.size = plusButton.currentBackgroundImage.size;
