@@ -62,41 +62,42 @@
         
         /** 头像 */
         UIImageView *iconView = [[UIImageView alloc] init];
-        [self.originalView addSubview:iconView];
+        [originalView addSubview:iconView];
         self.iconView = iconView;
         
         /** VIP图标 */
         UIImageView *vipView= [[UIImageView alloc] init];
-        [self.originalView addSubview:vipView];
+        [originalView addSubview:vipView];
         self.vipView = vipView;
         
         /** 原创微博配图 */
         UIImageView *photoView= [[UIImageView alloc] init];
-        [self.originalView addSubview:photoView];
+        [originalView addSubview:photoView];
         self.photoView = photoView;
         
         /** 昵称 */
         UILabel *nameLabel = [[UILabel alloc] init];
         nameLabel.font = [UIFont systemFontOfSize:15];
-        [self.originalView addSubview:nameLabel];
+        [originalView addSubview:nameLabel];
         self.nameLabel = nameLabel;
         
         /** 时间 */
         UILabel *timeLabel = [[UILabel alloc] init];
-        timeLabel.font = [UIFont systemFontOfSize:13];
-        [self.originalView addSubview:timeLabel];
+        timeLabel.font = [UIFont systemFontOfSize:12];
+        [originalView addSubview:timeLabel];
         self.timeLabel = timeLabel;
         
         /** 来源 */
         UILabel *sourceLabel = [[UILabel alloc] init];
-        sourceLabel.font = [UIFont systemFontOfSize:13];
-        [self.originalView addSubview:sourceLabel];
+        sourceLabel.font = [UIFont systemFontOfSize:12];
+        [originalView addSubview:sourceLabel];
         self.sourceLabel = sourceLabel;
         
         /** 原创微博文本 */
         UILabel *contentLabel = [[UILabel alloc] init];
         contentLabel.font = [UIFont systemFontOfSize:15];
-        [self.originalView addSubview:contentLabel];
+        contentLabel.numberOfLines = 0;
+        [originalView addSubview:contentLabel];
         self.contentLabel = contentLabel;
     }
     return self;
@@ -109,9 +110,9 @@
 {
     _statusFrame = statusFrame;
     
-    JHUser *user = [[JHUser alloc] init];
+    JHStatus *status = statusFrame.status;
     
-    JHStatus *status = [[JHStatus alloc] init];
+    JHUser *user = status.user;
     
     /** 原创微博的整体 */
     self.originalView.frame = statusFrame.originalViewF;
@@ -129,15 +130,15 @@
         self.vipView.image = [UIImage imageNamed:imageName];
         
         self.vipView.frame = statusFrame.vipViewF;
-        self.nameLabel.textColor = [UIColor yellowColor];
+        self.nameLabel.textColor = [UIColor orangeColor];
     } else {
         self.vipView.hidden = YES;
         self.nameLabel.textColor = [UIColor blackColor];
     }
     
     /** 原创微博配图 */
-    self.photoView.frame = statusFrame.photoViewF;
-    self.photoView.backgroundColor = JHRandomColor;
+//    self.photoView.frame = statusFrame.photoViewF;
+//    self.photoView.backgroundColor = JHRandomColor;
     
     /** 昵称 */
     self.nameLabel.text = user.name;
@@ -145,6 +146,7 @@
     
     /** 时间 */
     self.timeLabel.text = status.created_at;
+    self.timeLabel.textColor = JHColor(230, 180, 35);
     self.timeLabel.frame = statusFrame.timeLabelF;
     
     /** 来源 */

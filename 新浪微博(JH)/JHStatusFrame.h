@@ -6,6 +6,15 @@
 //  Copyright © 2015年 MyIOS. All rights reserved.
 //
 
+// 昵称字体
+#define JHStatusCellNameFont [UIFont systemFontOfSize:15]
+// 时间字体
+#define JHStatusCellTimeFont [UIFont systemFontOfSize:12]
+// 来源字体
+#define JHStatusCellSourceFont JHStatusCellTimeFont
+// 微博正文字体
+#define JHStatusCellContentFont [UIFont systemFontOfSize:15]
+
 #import <Foundation/Foundation.h>
 
 @class JHStatus;
@@ -14,6 +23,7 @@
 
 /** 微博模型 */
 @property (nonatomic, strong) JHStatus *status;
+
 /** 原创微博的整体 */
 @property (nonatomic, assign) CGRect originalViewF;
 /** 头像 */
@@ -30,5 +40,8 @@
 @property (nonatomic, assign) CGRect sourceLabelF;
 /** 原创微博文本 */
 @property (nonatomic, assign) CGRect contentLabelF;
+
+/** cell的高度 */
+@property (nonatomic, assign) CGFloat cellHeight;
 
 @end

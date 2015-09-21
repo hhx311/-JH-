@@ -11,4 +11,13 @@
 
 @implementation JHUser
 
+/**
+ *  判断用户是否为会员
+ */
+- (void)setMbtype:(int)mbtype
+{
+    _mbtype = mbtype;
+    
+    self.vip = mbtype > 2;
+}
 @end

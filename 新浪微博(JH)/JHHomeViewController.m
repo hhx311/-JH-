@@ -28,26 +28,26 @@
 #import "MJExtension.h"
 #import "JHLoadMoreFootView.h"
 #import "JHStatusCell.h"
-
+#import "JHStatusFrame.h"
 
 @interface JHHomeViewController ()<JHDropdownMenuDelegate>
 /**
- *  微博数组(存储着JHStatus微博模型,每个JHStatus对象对应一条微博)
+ *  微博数组(存储着JHStatusFrame微博模型,每个JHStatusFrame对象对应一条微博)
  */
-@property (nonatomic, strong) NSMutableArray *statuses;
+@property (nonatomic, strong) NSMutableArray *statusFrames;
 @end
 
 @implementation JHHomeViewController
 
 /**
- *  微博数组(存储着JHStatus微博模型,每个JHStatus对象对应一条微博)
+ *  微博数组(存储着JHStatusFrame微博模型,每个JHStatusFrame对象对应一条微博)
  */
-- (NSMutableArray *)statuses
+- (NSMutableArray *)statusFrames
 {
-    if (_statuses == nil) {
-        self.statuses = [NSMutableArray array];
+    if (_statusFrames == nil) {
+        self.statusFrames = [NSMutableArray array];
     }
-    return _statuses;
+    return _statusFrames;
 }
 
 - (void)viewDidLoad {
@@ -67,12 +67,10 @@
     
     // 获取未读数
     // 创建timer定时器
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(setupUnreadCount) userInfo:nil repeats:YES];
-    // 不管主线程是否正在其他事件,主线程也会抽时间处理一下timer
-    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+//    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(setupUnreadCount) userInfo:nil repeats:YES];
+//    // 不管主线程是否正在其他事件,主线程也会抽时间处理一下timer
+//    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 
-    // 设置cell高度
-    self.tableView.rowHeight = 150;
 }
 
 /**
@@ -142,6 +140,24 @@
 }
 
 /**
+ *  JHStatus模型数组转成JHStatusFrame模型数组
+ *
+ *  @param statuses 装着JHStatus模型的数组
+ */
+- (NSMutableArray *)statusFramesWithStatuses:(NSArray *)statuses
+{
+    NSMutableArray *statusFrames = [NSMutableArray array];
+    
+    for (JHStatus *status in statuses) {
+        JHStatusFrame *statusFrame = [[JHStatusFrame alloc] init];
+        statusFrame.status = status;
+        [statusFrames addObject:statusFrame];
+    }
+    
+    return statusFrames;
+}
+
+/**
  *  监听UIRefreshControl刷新控件的pull(拉拽)事件,加载最新微博
  *
  *  @param control 刷新控件(UIRefreshControl)
@@ -157,24 +173,21 @@
     params[@"access_token"] = account.access_token;
 
     // 取出最前面的微博（最新的微博，ID最大的微博）
-    JHStatus *firstStatus = [self.statuses firstObject];
-    if (firstStatus) { // 已加载过微博数据
+    JHStatusFrame *firstStatusF = [self.statusFrames firstObject];
+    if (firstStatusF) { // 已加载过微博数据
         // since_id:若指定此参数，则返回ID比since_id大的微博（即比since_id时间晚的微博），默认为0
-        params[@"since_id"] = firstStatus.idstr;
+        params[@"since_id"] = firstStatusF.status.idstr;
     }
     
     [mgr GET:JHRequest_statuses_friends_timeline parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         // 将加载的字典数组转换成模型数组,用数组存储最新微博模型
-        NSArray *newStatuses = [JHStatus objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
+        NSArray *newStatusFrames = [self statusFramesWithStatuses:[JHStatus objectArrayWithKeyValuesArray:responseObject[@"statuses"]]];
         
         // 将最新的微博数据，添加到总数组的最前面
-        NSRange range = NSMakeRange(0, newStatuses.count);
+        NSRange range = NSMakeRange(0, newStatusFrames.count);
         NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
-        [self.statuses insertObjects:newStatuses atIndexes:indexSet];
-        
-        // 易错写法
-//        [self.statuses insertObject:<#(nonnull id)#> atIndex:<#(NSUInteger)#>];
+        [self.statusFrames insertObjects:newStatusFrames atIndexes:indexSet];
 
         // 刷新表格
         [self.tableView reloadData];
@@ -183,7 +196,7 @@
         [control endRefreshing];
         
         // 显示最新微博数
-        [self showNewStatusesCount:(int)newStatuses.count];
+        [self showNewStatusesCount:(int)newStatusFrames.count];
    
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         JHLog(@"请求失败,稍后再试---%@",error);
@@ -269,10 +282,10 @@
     params[@"access_token"] = account.access_token;
     
     // 取出微博数组中最后一条微博
-    JHStatus *lastStatus = [self.statuses lastObject];
+    JHStatusFrame *lastStatusF = [self.statusFrames lastObject];
     
-    if (lastStatus) {
-        long long max_id = lastStatus.idstr.longLongValue - 1;
+    if (lastStatusF) {
+        long long max_id = lastStatusF.status.idstr.longLongValue - 1;
         
         // max_id:若指定此参数，则返回ID小于或等于max_id的微博，默认为0。
         params[@"max_id"] = @(max_id);
@@ -282,10 +295,10 @@
     [mgr GET:JHRequest_statuses_friends_timeline parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         // 加载的历史微博数据
-        NSArray *newStatuses = [JHStatus objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
+        NSArray *newStatusesFrames = [self statusFramesWithStatuses:[JHStatus objectArrayWithKeyValuesArray:responseObject[@"statuses"]]];
         
         // 将加载的数据存储到statuses数组中
-        [self.statuses addObjectsFromArray:newStatuses];
+        [self.statusFrames addObjectsFromArray:newStatusesFrames];
         
         // 刷新表格
         [self.tableView reloadData];
@@ -402,37 +415,17 @@
 
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.statuses.count;
+    return self.statusFrames.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     JHStatusCell *cell = [JHStatusCell cellWithTableView:tableView];
-//    NSString *ID = [NSString stringWithFormat:@"status"];
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-//    if (!cell) {
-//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-//    }
     
-    // 取出这行对应的微博字典
-    JHStatus *status = self.statuses[indexPath.row];
+    cell.statusFrame = self.statusFrames[indexPath.row];
     
-    // 设置这条微博的用户昵称
-    JHUser *user = status.user;
-    cell.textLabel.text = user.name;
+//    JHLog(@"%@",cell);
     
-    // 设置微博正文内容
-    cell.detailTextLabel.text = status.text;
-    // 设置换行
-    cell.detailTextLabel.numberOfLines = 0;
-    
-    // 设置这条微博的用户头像
-    // 图片url地址
-    NSURL *url = [NSURL URLWithString:user.profile_image_url];
-    // 占位图
-    UIImage *placeholderImage = [UIImage imageNamed:@"avatar_default"];
-    [cell.imageView sd_setImageWithURL:url placeholderImage:placeholderImage];
-    JHLog(@"%@",cell);
     return cell;
 }
 
@@ -442,7 +435,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     // 如果tableview没有数据,则直接返回
-    if (!self.statuses.count) return;
+    if (!self.statusFrames.count || !self.tableView.tableFooterView.isHidden) return;
     
     // tableview拖拽的y值
     CGFloat offSetY = scrollView.contentOffset.y;
@@ -457,6 +450,16 @@
         // 加载更多历史微博
         [self loadMoreStatuses];
     }
+}
+
+/**
+ *  设置每个cell的height
+ */
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    JHStatusFrame *statusFrame = self.statusFrames[indexPath.row];
+    
+    return statusFrame.cellHeight;
 }
 
 #pragma mark - JHDropdownMenuDelegate代理方法

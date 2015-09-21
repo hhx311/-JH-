@@ -37,6 +37,11 @@
 #import "UIWindow+Extension.h"
 
 /**
+ *  NSString分类
+ */
+#import "NSString+Extension.h"
+
+/**
  *  日志开关
  */
 #ifdef DEBUG
