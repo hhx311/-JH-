@@ -42,6 +42,11 @@
 #import "NSString+Extension.h"
 
 /**
+ *  NSDate分类
+ */
+#import "NSDate+Extension.h"
+
+/**
  *  日志开关
  */
 #ifdef DEBUG

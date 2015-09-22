@@ -67,9 +67,9 @@
     
     // 获取未读数
     // 创建timer定时器
-//    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(setupUnreadCount) userInfo:nil repeats:YES];
-//    // 不管主线程是否正在其他事件,主线程也会抽时间处理一下timer
-//    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(setupUnreadCount) userInfo:nil repeats:YES];
+    // 不管主线程是否正在其他事件,主线程也会抽时间处理一下timer
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 
 }
 
@@ -424,7 +424,8 @@
     
     cell.statusFrame = self.statusFrames[indexPath.row];
     
-//    JHLog(@"%@",cell);
+//    NSValue *value = [NSValue valueWithCGRect:cell.statusFrame.timeLabelF];
+//    JHLog(@"%@", value);
     
     return cell;
 }

@@ -6,6 +6,11 @@
 //  Copyright © 2015年 MyIOS. All rights reserved.
 //
 
+// 时间的字体颜色
+#define JHStatusCellTimeLabelColor JHColor(150, 150, 150)
+// 来源的字体颜色
+#define JHStatusCellSourceLabelColor JHStatusCellTimeLabelColor
+
 #import "JHStatusCell.h"
 #import "JHStatusFrame.h"
 #import "JHUser.h"
@@ -77,25 +82,27 @@
         
         /** 昵称 */
         UILabel *nameLabel = [[UILabel alloc] init];
-        nameLabel.font = [UIFont systemFontOfSize:15];
+        nameLabel.font = JHStatusCellNameFont;
         [originalView addSubview:nameLabel];
         self.nameLabel = nameLabel;
         
         /** 时间 */
         UILabel *timeLabel = [[UILabel alloc] init];
-        timeLabel.font = [UIFont systemFontOfSize:12];
+        timeLabel.font = JHStatusCellTimeFont;
+        timeLabel.textColor = JHStatusCellTimeLabelColor;
         [originalView addSubview:timeLabel];
         self.timeLabel = timeLabel;
         
         /** 来源 */
         UILabel *sourceLabel = [[UILabel alloc] init];
-        sourceLabel.font = [UIFont systemFontOfSize:12];
+        sourceLabel.font = JHStatusCellSourceFont;
+        sourceLabel.textColor = JHStatusCellSourceLabelColor;
         [originalView addSubview:sourceLabel];
         self.sourceLabel = sourceLabel;
         
         /** 原创微博文本 */
         UILabel *contentLabel = [[UILabel alloc] init];
-        contentLabel.font = [UIFont systemFontOfSize:15];
+        contentLabel.font = JHStatusCellContentFont;
         contentLabel.numberOfLines = 0;
         [originalView addSubview:contentLabel];
         self.contentLabel = contentLabel;
@@ -109,6 +116,9 @@
 - (void)setStatusFrame:(JHStatusFrame *)statusFrame
 {
     _statusFrame = statusFrame;
+    
+    // 重新调用setStatus方法(刷新子控件frame)<比较耗性能>
+//    statusFrame.status = self.statusFrame.status;
     
     JHStatus *status = statusFrame.status;
     
@@ -130,6 +140,8 @@
         self.vipView.image = [UIImage imageNamed:imageName];
         
         self.vipView.frame = statusFrame.vipViewF;
+        self.vipView.centerY = statusFrame.vipViewCenterY;
+        
         self.nameLabel.textColor = [UIColor orangeColor];
     } else {
         self.vipView.hidden = YES;
@@ -145,13 +157,18 @@
     self.nameLabel.frame = statusFrame.nameLabelF;
     
     /** 时间 */
+    CGFloat timeX = statusFrame.nameLabelF.origin.x;
+    CGFloat timeY = CGRectGetMaxY(statusFrame.nameLabelF) + 0.5 * JHStatusCellBorder;
+    CGSize timeSize = [status.created_at sizeWithFont:JHStatusCellTimeFont maxW:MAXFLOAT];
+    self.timeLabel.frame = (CGRect){{timeX, timeY},timeSize};
     self.timeLabel.text = status.created_at;
-    self.timeLabel.textColor = JHColor(230, 180, 35);
-    self.timeLabel.frame = statusFrame.timeLabelF;
     
     /** 来源 */
+    CGFloat sourceX = CGRectGetMaxX(statusFrame.timeLabelF) + JHStatusCellBorder;
+    CGFloat sourceY = timeY;
+    CGSize sourceSize = [status.source sizeWithFont:JHStatusCellSourceFont maxW:MAXFLOAT];
+    self.sourceLabel.frame = (CGRect){{sourceX, sourceY},sourceSize};
     self.sourceLabel.text = status.source;
-    self.sourceLabel.frame = statusFrame.sourceLabelF;
     
     /** 原创微博文本 */
     self.contentLabel.text = status.text;

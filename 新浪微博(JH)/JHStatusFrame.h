@@ -13,7 +13,10 @@
 // 来源字体
 #define JHStatusCellSourceFont JHStatusCellTimeFont
 // 微博正文字体
-#define JHStatusCellContentFont [UIFont systemFontOfSize:15]
+#define JHStatusCellContentFont JHStatusCellNameFont
+
+// cell边框宽度
+#define JHStatusCellBorder 10
 
 #import <Foundation/Foundation.h>
 
@@ -44,4 +47,6 @@
 /** cell的高度 */
 @property (nonatomic, assign) CGFloat cellHeight;
 
+/** VIP图标的centerY */
+@property (nonatomic, assign) CGFloat vipViewCenterY;
 @end

@@ -6,9 +6,6 @@
 //  Copyright © 2015年 MyIOS. All rights reserved.
 //
 
-// cell边框宽度
-#define JHStatusCellBorder 10
-
 #import "JHStatusFrame.h"
 #import "JHUser.h"
 #import "JHStatus.h"
@@ -38,20 +35,21 @@
     
     /** VIP图标 */
     if (user.isVip) {
-        CGFloat vipX = CGRectGetMaxX(self.nameLabelF) + JHStatusCellBorder;
-        CGFloat vipY = JHStatusCellBorder;
-        CGFloat vipWH = nameSize.height;
-        self.vipViewF = CGRectMake(vipX, vipY, vipWH, vipWH);
+        CGFloat vipX = CGRectGetMaxX(self.nameLabelF) + 0.7 * JHStatusCellBorder;
+        CGFloat vipWH = 0.7 * nameSize.height;
+        self.vipViewF = CGRectMake(vipX, 0, vipWH, vipWH);
+        CGFloat vipCenterY = (self.nameLabelF.origin.y + CGRectGetMaxY(self.nameLabelF)) / 2;
+        self.vipViewCenterY = vipCenterY;
     }
     
     /** 时间 */
     CGFloat timeX = nameX;
-    CGFloat timeY = CGRectGetMaxY(self.nameLabelF) + JHStatusCellBorder;
+    CGFloat timeY = CGRectGetMaxY(self.nameLabelF) + 0.5 * JHStatusCellBorder;
     CGSize timeSize = [status.created_at sizeWithFont:JHStatusCellTimeFont maxW:MAXFLOAT];
     self.timeLabelF = (CGRect){{timeX, timeY},timeSize};
     
     /** 来源 */
-    CGFloat sourceX = CGRectGetMaxY(self.timeLabelF) + JHStatusCellBorder;
+    CGFloat sourceX = CGRectGetMaxX(self.timeLabelF) + JHStatusCellBorder;
     CGFloat sourceY = timeY;
     CGSize sourceSize = [status.source sizeWithFont:JHStatusCellSourceFont maxW:MAXFLOAT];
     self.sourceLabelF = (CGRect){{sourceX, sourceY},sourceSize};
@@ -76,6 +74,6 @@
     self.originalViewF = CGRectMake(originalX, originalY, originalW, originalH);
     
     /** cell的高度 */
-    self.cellHeight = CGRectGetMaxY(self.originalViewF);
+    self.cellHeight = CGRectGetMaxY(self.originalViewF);    
 }
 @end
