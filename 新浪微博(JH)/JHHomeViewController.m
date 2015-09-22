@@ -213,9 +213,7 @@
  */
 - (void)showNewStatusesCount:(int)count
 {
-    // 清空未读微博数字
-    self.tabBarItem.badgeValue =nil;
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    if (!count) return; // 没有新微博,则直接返回
     
     // 创建显示最新微博数的lable
     UILabel *lable = [[UILabel alloc] init];
@@ -224,23 +222,19 @@
     lable.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"timeline_new_status_background"]];
     
     // 设置lable的文本内容
-    if (count) { // 有最新的微博
-        lable.text = [NSString stringWithFormat:@"总共%d条最新微博",count];
-    } else { // 没有最新微博
-        lable.text = [NSString stringWithFormat:@"没有最新的微博,请稍后再试"];
-    }
+    lable.text = [NSString stringWithFormat:@"%d 条新微博",count];
     
     // 设置lable文本显示居中
     lable.textAlignment = NSTextAlignmentCenter;
     
     // 设置lable文本字体大小和颜色
-    lable.font = [UIFont systemFontOfSize:17];
+    lable.font = [UIFont systemFontOfSize:13];
     lable.textColor = [UIColor whiteColor];
     
     // 设置lable初始frame
     lable.x = 0;
     lable.width = [UIScreen mainScreen].bounds.size.width;
-    lable.height = 30;
+    lable.height = 20;
     lable.y = CGRectGetMaxY(self.navigationController.navigationBar.frame) - lable.height;
     
     // 添加lable至navagationBar
@@ -266,6 +260,16 @@
             [lable removeFromSuperview];
         }];
     }];
+    
+    //???: 是否会影响性能?
+    // 更新刷新后的未读微博数(每次默认刷新最多20条)
+    self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - count];
+    [UIApplication sharedApplication].applicationIconBadgeNumber -= count;
+    // 判断是否要清零
+    if ([UIApplication sharedApplication].applicationIconBadgeNumber <= 0) {
+        self.tabBarItem.badgeValue = nil;
+        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    }
 }
 
 /**

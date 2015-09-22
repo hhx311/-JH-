@@ -117,9 +117,6 @@
 {
     _statusFrame = statusFrame;
     
-    // 重新调用setStatus方法(刷新子控件frame)<比较耗性能>
-//    statusFrame.status = self.statusFrame.status;
-    
     JHStatus *status = statusFrame.status;
     
     JHUser *user = status.user;
@@ -160,15 +157,20 @@
     CGFloat timeX = statusFrame.nameLabelF.origin.x;
     CGFloat timeY = CGRectGetMaxY(statusFrame.nameLabelF) + 0.5 * JHStatusCellBorder;
     CGSize timeSize = [status.created_at sizeWithFont:JHStatusCellTimeFont maxW:MAXFLOAT];
-    self.timeLabel.frame = (CGRect){{timeX, timeY},timeSize};
     self.timeLabel.text = status.created_at;
     
+    statusFrame.timeLabelF = (CGRect){{timeX, timeY},timeSize};
+    self.timeLabel.frame = statusFrame.timeLabelF;
+    // 意义不一样,statusesFrame模型中timeLabelF并未更改,再次调用时仍为最初的statusesFrame.timeLabelF
+//    self.timeLabel.frame = (CGRect){{timeX, timeY},timeSize};
+ 
     /** 来源 */
     CGFloat sourceX = CGRectGetMaxX(statusFrame.timeLabelF) + JHStatusCellBorder;
     CGFloat sourceY = timeY;
     CGSize sourceSize = [status.source sizeWithFont:JHStatusCellSourceFont maxW:MAXFLOAT];
-    self.sourceLabel.frame = (CGRect){{sourceX, sourceY},sourceSize};
     self.sourceLabel.text = status.source;
+    statusFrame.sourceLabelF = (CGRect){{sourceX, sourceY},sourceSize};
+    self.sourceLabel.frame = statusFrame.sourceLabelF;
     
     /** 原创微博文本 */
     self.contentLabel.text = status.text;
