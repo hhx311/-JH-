@@ -164,6 +164,8 @@
  */
 - (void)refreshNewStatus:(UIRefreshControl *)control
 {
+   
+    
     // 请求管理者
     AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
     
@@ -171,6 +173,7 @@
     JHAccount *account = [JHAccountTool account];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"access_token"] = account.access_token;
+//    params[@"count"] = @50;
 
     // 取出最前面的微博（最新的微博，ID最大的微博）
     JHStatusFrame *firstStatusF = [self.statusFrames firstObject];
@@ -188,6 +191,8 @@
         NSRange range = NSMakeRange(0, newStatusFrames.count);
         NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
         [self.statusFrames insertObjects:newStatusFrames atIndexes:indexSet];
+        
+//        JHLog(@"%@",responseObject);
 
         // 刷新表格
         [self.tableView reloadData];
@@ -243,20 +248,14 @@
     
     // 动画显示/隐藏 lable文本框
     [UIView animateWithDuration:1.0 animations:^{
-        
         // 更改transform
         label.transform = CGAffineTransformMakeTranslation(0, label.height);
-        
     } completion:^(BOOL finished) {
-        
         // 设置动画隐藏lable, 并移除
         [UIView animateWithDuration:1.0 delay:2.0 options:UIViewAnimationOptionCurveLinear animations:^{
-            
             // 恢复transform
             label.transform = CGAffineTransformIdentity;
-            
         } completion:^(BOOL finished) {
-            
             // 移除lable文本框
             [label removeFromSuperview];
         }];
@@ -267,7 +266,7 @@
     self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - count];
     [UIApplication sharedApplication].applicationIconBadgeNumber -= count;
     // 判断是否要清零
-    if ([UIApplication sharedApplication].applicationIconBadgeNumber <= 0) {
+    if ([UIApplication sharedApplication].applicationIconBadgeNumber < 1) {
         self.tabBarItem.badgeValue = nil;
         [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     }

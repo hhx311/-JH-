@@ -6,17 +6,13 @@
 //  Copyright © 2015年 MyIOS. All rights reserved.
 //
 
-// 时间的字体颜色
-#define JHStatusCellTimeLabelColor JHColor(150, 150, 150)
-// 来源的字体颜色
-#define JHStatusCellSourceLabelColor JHStatusCellTimeLabelColor
-
 #import "JHStatusCell.h"
 #import "JHStatusFrame.h"
 #import "JHUser.h"
 #import "JHStatus.h"
 #import "UIImageView+WebCache.h"
 #import "JHPhoto.h"
+#import "JHStatusToolBar.h"
 
 @interface JHStatusCell()
 
@@ -44,6 +40,10 @@
 /** 转发微博的配图 */
 @property (nonatomic, weak) UIImageView *retweetedPhotoView;
 
+/** 工具条 */
+@property (nonatomic, weak) JHStatusToolBar *statusToolBar;
+
+
 @end
 
 @implementation JHStatusCell
@@ -68,7 +68,7 @@
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
-        self.backgroundColor = [UIColor grayColor];
+        self.backgroundColor = JHColor(247, 247, 247);
         
         // 设置cell被点击时不变色
         self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -103,14 +103,14 @@
         /** 时间 */
         UILabel *timeLabel = [[UILabel alloc] init];
         timeLabel.font = JHStatusCellTimeFont;
-        timeLabel.textColor = JHStatusCellTimeLabelColor;
+        timeLabel.textColor = [UIColor orangeColor];
         [originalView addSubview:timeLabel];
         self.timeLabel = timeLabel;
         
         /** 来源 */
         UILabel *sourceLabel = [[UILabel alloc] init];
         sourceLabel.font = JHStatusCellSourceFont;
-        sourceLabel.textColor = JHStatusCellSourceLabelColor;
+        sourceLabel.textColor = JHColor(150, 150, 150);
         [originalView addSubview:sourceLabel];
         self.sourceLabel = sourceLabel;
         
@@ -124,7 +124,7 @@
         /** 转发微博的整体 */
         UIView *retweetedView = [[UIView alloc] init];
         retweetedView.backgroundColor = JHColor(247, 247, 247);
-//        retweetedView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"timeline_retweet_background"]];
+        
         [self.contentView addSubview:retweetedView];
         self.retweetedView = retweetedView;
         
@@ -140,6 +140,11 @@
         UIImageView *retweetedPhotoView = [[UIImageView alloc] init];
         [retweetedView addSubview:retweetedPhotoView];
         self.retweetedPhotoView = retweetedPhotoView;
+        
+        /** 工具条 */
+        JHStatusToolBar *statusToolBar = [JHStatusToolBar toolBar];
+        [self.contentView addSubview:statusToolBar];
+        self.statusToolBar = statusToolBar;
     }
     return self;
 }
@@ -152,6 +157,9 @@
     _statusFrame = statusFrame;
     
     JHStatus *status = statusFrame.status;
+    
+    // 调用setStatus方法,让cell重用时刷新最新数据
+    statusFrame.status = status;
    
     JHUser *user = status.user;
     
@@ -173,7 +181,7 @@
         self.vipView.frame = statusFrame.vipViewF;
         self.vipView.centerY = statusFrame.vipViewCenterY;
         
-        self.nameLabel.textColor = [UIColor orangeColor];
+        self.nameLabel.textColor = JHColor(235, 100, 20);
     } else {
         self.vipView.hidden = YES;
         self.nameLabel.textColor = [UIColor blackColor];
@@ -194,22 +202,22 @@
     self.nameLabel.frame = statusFrame.nameLabelF;
     
     /** 时间 */
-    CGFloat timeX = statusFrame.nameLabelF.origin.x;
-    CGFloat timeY = CGRectGetMaxY(statusFrame.nameLabelF) + 0.5 * JHStatusCellBorder;
-    CGSize timeSize = [status.created_at sizeWithFont:JHStatusCellTimeFont maxW:MAXFLOAT];
+//    CGFloat timeX = statusFrame.nameLabelF.origin.x;
+//    CGFloat timeY = CGRectGetMaxY(statusFrame.nameLabelF) + 0.5 * JHStatusCellBorder;
+//    CGSize timeSize = [status.created_at sizeWithFont:JHStatusCellTimeFont maxW:MAXFLOAT];
     self.timeLabel.text = status.created_at;
     
-    statusFrame.timeLabelF = (CGRect){{timeX, timeY},timeSize};
+//    statusFrame.timeLabelF = (CGRect){{timeX, timeY},timeSize};
     self.timeLabel.frame = statusFrame.timeLabelF;
     // 意义不一样,statusesFrame模型中timeLabelF并未更改,再次调用时仍为最初的statusesFrame.timeLabelF
 //    self.timeLabel.frame = (CGRect){{timeX, timeY},timeSize};
  
     /** 来源 */
-    CGFloat sourceX = CGRectGetMaxX(statusFrame.timeLabelF) + JHStatusCellBorder;
-    CGFloat sourceY = timeY;
-    CGSize sourceSize = [status.source sizeWithFont:JHStatusCellSourceFont maxW:MAXFLOAT];
+//    CGFloat sourceX = CGRectGetMaxX(statusFrame.timeLabelF) + JHStatusCellBorder;
+//    CGFloat sourceY = timeY;
+//    CGSize sourceSize = [status.source sizeWithFont:JHStatusCellSourceFont maxW:MAXFLOAT];
     self.sourceLabel.text = status.source;
-    statusFrame.sourceLabelF = (CGRect){{sourceX, sourceY},sourceSize};
+//    statusFrame.sourceLabelF = (CGRect){{sourceX, sourceY},sourceSize};
     self.sourceLabel.frame = statusFrame.sourceLabelF;
     
     /** 原创微博文本 */
@@ -243,6 +251,10 @@
     } else {
         self.retweetedView.hidden = YES;
     }
+    
+    /** 工具条 */
+    self.statusToolBar.frame = statusFrame.statusToolBarF;
+    self.statusToolBar.status = status;
 }
 
 @end

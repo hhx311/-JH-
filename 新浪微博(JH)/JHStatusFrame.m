@@ -80,7 +80,8 @@
     CGFloat originalW = cellW;
     self.originalViewF = CGRectMake(originalX, originalY, originalW, originalH);
     
-    if (status.retweeted_status) {
+    CGFloat statusToolBarY;
+    if (status.retweeted_status) { // 有转发微博
         /** 转发微博的文本 */
         CGFloat retweetedContentX = JHStatusCellBorder;
         CGFloat retweetedContentY = JHStatusCellBorder;
@@ -105,11 +106,18 @@
         CGFloat retweetedW = cellW;
         self.retweetedViewF = CGRectMake(retweetedX, retweetedY, retweetedW, retweetedH);
         
-        /** cell的高度 */
-        self.cellHeight = CGRectGetMaxY(self.retweetedViewF);
-    } else {
-        /** cell的高度 */
-        self.cellHeight = CGRectGetMaxY(self.originalViewF);
+        statusToolBarY = CGRectGetMaxY(self.retweetedViewF);
+    } else { // 没转发微博
+        statusToolBarY = CGRectGetMaxY(self.originalViewF);
     }
+    
+    /** 工具条 */
+    CGFloat statusToolBarX = 0;
+    CGFloat statusToolBarW = cellW;
+    CGFloat statusToolBarH = 35;
+    self.statusToolBarF = CGRectMake(statusToolBarX, statusToolBarY, statusToolBarW, statusToolBarH);
+    
+    /** cell的高度 */
+    self.cellHeight = CGRectGetMaxY(self.statusToolBarF);
 }
 @end

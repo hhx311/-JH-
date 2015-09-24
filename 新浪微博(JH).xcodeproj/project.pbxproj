@@ -78,6 +78,7 @@
 		968D5CDD1BA1D9F000A48B0B /* JHNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 968D5CDC1BA1D9F000A48B0B /* JHNavigationController.m */; };
 		968D5CE41BA1E75B00A48B0B /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 968D5CE31BA1E75B00A48B0B /* UIView+Extension.m */; };
 		968D5CE71BA24FA200A48B0B /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 968D5CE61BA24FA200A48B0B /* UIBarButtonItem+Extension.m */; };
+		969256BB1BB3DF4D00682931 /* JHStatusToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 969256BA1BB3DF4C00682931 /* JHStatusToolBar.m */; settings = {ASSET_TAGS = (); }; };
 		96CC6D6A1BB0670B00F65763 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CC6D691BB0670B00F65763 /* NSDate+Extension.m */; settings = {ASSET_TAGS = (); }; };
 		96DBD4601BACFD3B00251670 /* JHLoadMoreFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DBD45F1BACFD3B00251670 /* JHLoadMoreFootView.m */; settings = {ASSET_TAGS = (); }; };
 		96DBD4621BACFD5300251670 /* JHLoadMoreFootView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96DBD4611BACFD5300251670 /* JHLoadMoreFootView.xib */; settings = {ASSET_TAGS = (); }; };
@@ -238,6 +239,8 @@
 		968D5CE31BA1E75B00A48B0B /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		968D5CE51BA24FA200A48B0B /* UIBarButtonItem+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Extension.h"; sourceTree = "<group>"; };
 		968D5CE61BA24FA200A48B0B /* UIBarButtonItem+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Extension.m"; sourceTree = "<group>"; };
+		969256B91BB3DF4C00682931 /* JHStatusToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHStatusToolBar.h; sourceTree = "<group>"; };
+		969256BA1BB3DF4C00682931 /* JHStatusToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHStatusToolBar.m; sourceTree = "<group>"; };
 		96CC6D681BB0670B00F65763 /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
 		96CC6D691BB0670B00F65763 /* NSDate+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
 		96DBD45E1BACFD3B00251670 /* JHLoadMoreFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHLoadMoreFootView.h; sourceTree = "<group>"; };
@@ -435,6 +438,8 @@
 				96DBD4611BACFD5300251670 /* JHLoadMoreFootView.xib */,
 				962B26F61BAF95C300731381 /* JHStatusCell.h */,
 				962B26F71BAF95C300731381 /* JHStatusCell.m */,
+				969256B91BB3DF4C00682931 /* JHStatusToolBar.h */,
+				969256BA1BB3DF4C00682931 /* JHStatusToolBar.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -870,6 +875,7 @@
 				964686601BAC1E6400559FDF /* UIImage+WebP.m in Sources */,
 				964686581BAC1E6400559FDF /* SDWebImageDecoder.m in Sources */,
 				964686571BAC1E6400559FDF /* SDWebImageCompat.m in Sources */,
+				969256BB1BB3DF4D00682931 /* JHStatusToolBar.m in Sources */,
 				966F1CD91BA6A5FC00F7FF1A /* AFHTTPRequestOperationManager.m in Sources */,
 				966F1CE11BA6A5FC00F7FF1A /* MBProgressHUD+MJ.m in Sources */,
 				966F1CD81BA6A5FC00F7FF1A /* AFHTTPRequestOperation.m in Sources */,

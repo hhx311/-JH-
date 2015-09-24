@@ -10,35 +10,35 @@
 
 @interface UIView (Extension)
 /**
- *  设置View的x值
+ *  View的x值
  */
 @property (nonatomic, assign) CGFloat x;
 /**
- *  设置View的y值
+ *  View的y值
  */
 @property (nonatomic, assign) CGFloat y;
 /**
- *  设置View的中点x值
+ *  View的中点x值
  */
 @property (nonatomic, assign) CGFloat centerX;
 /**
- *  设置View的中点x值
+ *  View的中点x值
  */
 @property (nonatomic, assign) CGFloat centerY;
 /**
- *  设置View的宽
+ *  View的宽
  */
 @property (nonatomic, assign) CGFloat width;
 /**
- *  设置View的高
+ *  View的高
  */
 @property (nonatomic, assign) CGFloat height;
 /**
- *  设置View的位置
+ *  View的位置
  */
 @property (nonatomic, assign) CGPoint origin;
 /**
- *  设置View的尺寸
+ *  View的尺寸
  */
 @property (nonatomic, assign) CGSize size;
 @end
