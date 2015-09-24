@@ -26,4 +26,5 @@
 
 /** vip */
 @property (nonatomic, assign, getter=isVip) BOOL vip;
+
 @end

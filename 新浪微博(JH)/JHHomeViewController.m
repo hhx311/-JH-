@@ -216,35 +216,36 @@
     if (!count) return; // 没有新微博,则直接返回
     
     // 创建显示最新微博数的lable
-    UILabel *lable = [[UILabel alloc] init];
+    UILabel *label = [[UILabel alloc] init];
+    label.alpha = 0.8;
     
     // 设置lable背景色
-    lable.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"timeline_new_status_background"]];
+    label.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"timeline_new_status_background"]];
     
     // 设置lable的文本内容
-    lable.text = [NSString stringWithFormat:@"%d 条新微博",count];
+    label.text = [NSString stringWithFormat:@"%d 条新微博",count];
     
     // 设置lable文本显示居中
-    lable.textAlignment = NSTextAlignmentCenter;
+    label.textAlignment = NSTextAlignmentCenter;
     
     // 设置lable文本字体大小和颜色
-    lable.font = [UIFont systemFontOfSize:13];
-    lable.textColor = [UIColor whiteColor];
+    label.font = [UIFont systemFontOfSize:14];
+    label.textColor = [UIColor whiteColor];
     
     // 设置lable初始frame
-    lable.x = 0;
-    lable.width = [UIScreen mainScreen].bounds.size.width;
-    lable.height = 20;
-    lable.y = CGRectGetMaxY(self.navigationController.navigationBar.frame) - lable.height;
+    label.x = 0;
+    label.width = [UIScreen mainScreen].bounds.size.width;
+    label.height = 25;
+    label.y = CGRectGetMaxY(self.navigationController.navigationBar.frame) - label.height;
     
     // 添加lable至navagationBar
-    [self.navigationController.view insertSubview:lable belowSubview:self.navigationController.navigationBar];
+    [self.navigationController.view insertSubview:label belowSubview:self.navigationController.navigationBar];
     
     // 动画显示/隐藏 lable文本框
     [UIView animateWithDuration:1.0 animations:^{
         
         // 更改transform
-        lable.transform = CGAffineTransformMakeTranslation(0, lable.height);
+        label.transform = CGAffineTransformMakeTranslation(0, label.height);
         
     } completion:^(BOOL finished) {
         
@@ -252,12 +253,12 @@
         [UIView animateWithDuration:1.0 delay:2.0 options:UIViewAnimationOptionCurveLinear animations:^{
             
             // 恢复transform
-            lable.transform = CGAffineTransformIdentity;
+            label.transform = CGAffineTransformIdentity;
             
         } completion:^(BOOL finished) {
             
             // 移除lable文本框
-            [lable removeFromSuperview];
+            [label removeFromSuperview];
         }];
     }];
     

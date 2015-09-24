@@ -16,6 +16,7 @@
 #import "JHUser.h"
 #import "JHStatus.h"
 #import "UIImageView+WebCache.h"
+#import "JHPhoto.h"
 
 @interface JHStatusCell()
 
@@ -35,6 +36,13 @@
 @property (nonatomic, weak) UILabel *sourceLabel;
 /** 原创微博文本 */
 @property (nonatomic, weak) UILabel *contentLabel;
+
+/** 转发微博的整体 */
+@property (nonatomic, weak) UIView *retweetedView;
+/** 转发微博的文本 */
+@property (nonatomic, weak) UILabel *retweetedContentLabel;
+/** 转发微博的配图 */
+@property (nonatomic, weak) UIImageView *retweetedPhotoView;
 
 @end
 
@@ -60,8 +68,14 @@
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
+        self.backgroundColor = [UIColor grayColor];
+        
+        // 设置cell被点击时不变色
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         /** 原创微博的整体 */
         UIView *originalView = [[UIView alloc] init];
+        originalView.backgroundColor = [UIColor whiteColor];
         [self.contentView addSubview:originalView];
         self.originalView = originalView;
         
@@ -106,6 +120,26 @@
         contentLabel.numberOfLines = 0;
         [originalView addSubview:contentLabel];
         self.contentLabel = contentLabel;
+        
+        /** 转发微博的整体 */
+        UIView *retweetedView = [[UIView alloc] init];
+        retweetedView.backgroundColor = JHColor(247, 247, 247);
+//        retweetedView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"timeline_retweet_background"]];
+        [self.contentView addSubview:retweetedView];
+        self.retweetedView = retweetedView;
+        
+        /** 转发微博的文本 */
+        UILabel *retweetedContentLabel = [[UILabel alloc] init];
+        retweetedContentLabel.textColor = JHColor(100, 100, 100);
+        retweetedContentLabel.font = JHStatusCellRetweetedContentFont;
+        retweetedContentLabel.numberOfLines = 0;
+        [retweetedView addSubview:retweetedContentLabel];
+        self.retweetedContentLabel = retweetedContentLabel;
+        
+        /** 转发微博的配图 */
+        UIImageView *retweetedPhotoView = [[UIImageView alloc] init];
+        [retweetedView addSubview:retweetedPhotoView];
+        self.retweetedPhotoView = retweetedPhotoView;
     }
     return self;
 }
@@ -118,7 +152,7 @@
     _statusFrame = statusFrame;
     
     JHStatus *status = statusFrame.status;
-    
+   
     JHUser *user = status.user;
     
     /** 原创微博的整体 */
@@ -146,8 +180,14 @@
     }
     
     /** 原创微博配图 */
-//    self.photoView.frame = statusFrame.photoViewF;
-//    self.photoView.backgroundColor = JHRandomColor;
+    if (status.pic_urls.count) { // 有图
+        JHPhoto *photo = [status.pic_urls firstObject];
+        [self.photoView sd_setImageWithURL:[NSURL URLWithString:photo.thumbnail_pic] placeholderImage:[UIImage imageNamed:@"timeline_image_placeholder"]];
+        self.photoView.frame = statusFrame.photoViewF;
+        self.photoView.hidden = NO;
+    } else { // 没图
+        self.photoView.hidden = YES;
+    }
     
     /** 昵称 */
     self.nameLabel.text = user.name;
@@ -175,6 +215,34 @@
     /** 原创微博文本 */
     self.contentLabel.text = status.text;
     self.contentLabel.frame = statusFrame.contentLabelF;
+    
+    // 转发微博
+    if (status.retweeted_status) {
+        JHStatus *retweeted_status = status.retweeted_status;
+        JHUser *retweeted_user = retweeted_status.user;
+        
+        self.retweetedView.hidden = NO;
+        
+        /** 转发微博的整体 */
+        self.retweetedView.frame = statusFrame.retweetedViewF;
+        
+        /** 转发微博的文本 */
+        self.retweetedContentLabel.text = [NSString stringWithFormat:@"@%@: %@", retweeted_user.name, retweeted_status.text];
+        self.retweetedContentLabel.frame = statusFrame.retweetedContentLabelF;
+        
+        /** 转发微博的配图 */
+        if (status.retweeted_status.pic_urls.count) {
+            JHPhoto *retweetedPhoto = [retweeted_status.pic_urls firstObject];
+            [self.retweetedPhotoView sd_setImageWithURL:[NSURL URLWithString:retweetedPhoto.thumbnail_pic] placeholderImage:[UIImage imageNamed:@"timeline_image_placeholder"]];
+            self.retweetedPhotoView.frame = statusFrame.retweetedPhotoViewF;
+            
+            self.retweetedPhotoView.hidden = NO;
+        } else {
+            self.retweetedPhotoView.hidden = YES;
+        }
+    } else {
+        self.retweetedView.hidden = YES;
+    }
 }
 
 @end
