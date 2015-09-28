@@ -74,6 +74,7 @@
 		966FB7B31BB14F600049FB93 /* JHPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 966FB7B21BB14F600049FB93 /* JHPhoto.m */; settings = {ASSET_TAGS = (); }; };
 		967BC4761BB6D776001366C9 /* JHStatusPhotosView.m in Sources */ = {isa = PBXBuildFile; fileRef = 967BC4751BB6D776001366C9 /* JHStatusPhotosView.m */; settings = {ASSET_TAGS = (); }; };
 		967BC4791BB6D797001366C9 /* JHStatusPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 967BC4781BB6D797001366C9 /* JHStatusPhotoView.m */; settings = {ASSET_TAGS = (); }; };
+		967BC47C1BB99B7B001366C9 /* JHIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = 967BC47B1BB99B7B001366C9 /* JHIconView.m */; settings = {ASSET_TAGS = (); }; };
 		968D5CD51BA15F6200A48B0B /* JHTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 968D5CD41BA15F6200A48B0B /* JHTabBarViewController.m */; };
 		968D5CD91BA1644400A48B0B /* JHTest1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 968D5CD71BA1644400A48B0B /* JHTest1ViewController.m */; };
 		968D5CDA1BA1644400A48B0B /* JHTest1ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 968D5CD81BA1644400A48B0B /* JHTest1ViewController.xib */; };
@@ -234,6 +235,8 @@
 		967BC4751BB6D776001366C9 /* JHStatusPhotosView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHStatusPhotosView.m; sourceTree = "<group>"; };
 		967BC4771BB6D797001366C9 /* JHStatusPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHStatusPhotoView.h; sourceTree = "<group>"; };
 		967BC4781BB6D797001366C9 /* JHStatusPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHStatusPhotoView.m; sourceTree = "<group>"; };
+		967BC47A1BB99B7B001366C9 /* JHIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHIconView.h; sourceTree = "<group>"; };
+		967BC47B1BB99B7B001366C9 /* JHIconView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHIconView.m; sourceTree = "<group>"; };
 		968D5CD31BA15F6200A48B0B /* JHTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHTabBarViewController.h; sourceTree = "<group>"; };
 		968D5CD41BA15F6200A48B0B /* JHTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHTabBarViewController.m; sourceTree = "<group>"; };
 		968D5CD61BA1644400A48B0B /* JHTest1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHTest1ViewController.h; sourceTree = "<group>"; };
@@ -306,6 +309,8 @@
 				962D4C041BA3042D00C78D0A /* JHTabBar.m */,
 				962D4C061BA3C45000C78D0A /* JHDropdownMenu.h */,
 				962D4C071BA3C45000C78D0A /* JHDropdownMenu.m */,
+				967BC47A1BB99B7B001366C9 /* JHIconView.h */,
+				967BC47B1BB99B7B001366C9 /* JHIconView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -878,6 +883,7 @@
 				962D4BFF1BA272CC00C78D0A /* JHSearchBar.m in Sources */,
 				966F1CDC1BA6A5FC00F7FF1A /* AFSecurityPolicy.m in Sources */,
 				964686291BAC19CF00559FDF /* MJFoundation.m in Sources */,
+				967BC47C1BB99B7B001366C9 /* JHIconView.m in Sources */,
 				96CC6D6A1BB0670B00F65763 /* NSDate+Extension.m in Sources */,
 				9646862B1BAC19CF00559FDF /* MJMember.m in Sources */,
 				9646865F1BAC1E6400559FDF /* UIImage+MultiFormat.m in Sources */,

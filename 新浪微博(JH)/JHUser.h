@@ -8,6 +8,21 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum {
+    /** 没有任何认证 */
+    JHUserVerifiedTypeNone = -1,
+    /** 个人认证 */
+    JHUserVerifiedPersonal = 0,
+    /** 企业官方：CSDN、EOE、搜狐新闻客户端 */
+    JHUserVerifiedOrgEnterprice = 2,
+    /** 媒体官方：程序员杂志、苹果汇 */
+    JHUserVerifiedOrgMedia = 3,
+    /** 网站官方：猫扑 */
+    JHUserVerifiedOrgWebsite = 5,
+    /** 微博达人 */
+    JHUserVerifiedDaren = 220
+} JHUserVerifiedType;
+
 @interface JHUser : NSObject
 /** string  字符串型的用户uid */
 @property (nonatomic, copy) NSString *idstr;
@@ -26,5 +41,8 @@
 
 /** vip */
 @property (nonatomic, assign, getter=isVip) BOOL vip;
+
+/** 认证类型 */
+@property (nonatomic, assign) JHUserVerifiedType verified_type;
 
 @end

@@ -14,13 +14,14 @@
 #import "JHPhoto.h"
 #import "JHStatusToolBar.h"
 #import "JHStatusPhotosView.h"
+#import "JHIconView.h"
 
 @interface JHStatusCell()
 
 /** 原创微博的整体 */
 @property (nonatomic, weak) UIView *originalView;
 /** 头像 */
-@property (nonatomic, weak) UIImageView *iconView;
+@property (nonatomic, weak) JHIconView *iconView;
 /** VIP图标 */
 @property (nonatomic, weak) UIImageView *vipView;
 /** 原创微博配图 */
@@ -69,85 +70,113 @@
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
+        // 设置cell的背景色
         self.backgroundColor = JHColor(247, 247, 247);
         
         // 设置cell被点击时不变色
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+       
+        // 1.初始化原创微博
+        [self initOriginalStatus];
         
-        /** 原创微博的整体 */
-        UIView *originalView = [[UIView alloc] init];
-        originalView.backgroundColor = [UIColor whiteColor];
-        [self.contentView addSubview:originalView];
-        self.originalView = originalView;
+        // 2.初始化转发微博
+        [self initRetweetedStatus];
         
-        /** 头像 */
-        UIImageView *iconView = [[UIImageView alloc] init];
-        [originalView addSubview:iconView];
-        self.iconView = iconView;
-        
-        /** VIP图标 */
-        UIImageView *vipView= [[UIImageView alloc] init];
-        [originalView addSubview:vipView];
-        self.vipView = vipView;
-        
-        /** 原创微博配图 */
-        JHStatusPhotosView *photosView= [[JHStatusPhotosView alloc] init];
-        [originalView addSubview:photosView];
-        self.photosView = photosView;
-        
-        /** 昵称 */
-        UILabel *nameLabel = [[UILabel alloc] init];
-        nameLabel.font = JHStatusCellNameFont;
-        [originalView addSubview:nameLabel];
-        self.nameLabel = nameLabel;
-        
-        /** 时间 */
-        UILabel *timeLabel = [[UILabel alloc] init];
-        timeLabel.font = JHStatusCellTimeFont;
-        timeLabel.textColor = [UIColor orangeColor];
-        [originalView addSubview:timeLabel];
-        self.timeLabel = timeLabel;
-        
-        /** 来源 */
-        UILabel *sourceLabel = [[UILabel alloc] init];
-        sourceLabel.font = JHStatusCellSourceFont;
-        sourceLabel.textColor = JHColor(150, 150, 150);
-        [originalView addSubview:sourceLabel];
-        self.sourceLabel = sourceLabel;
-        
-        /** 原创微博文本 */
-        UILabel *contentLabel = [[UILabel alloc] init];
-        contentLabel.font = JHStatusCellContentFont;
-        contentLabel.numberOfLines = 0;
-        [originalView addSubview:contentLabel];
-        self.contentLabel = contentLabel;
-        
-        /** 转发微博的整体 */
-        UIView *retweetedView = [[UIView alloc] init];
-        retweetedView.backgroundColor = JHColor(247, 247, 247);
-        
-        [self.contentView addSubview:retweetedView];
-        self.retweetedView = retweetedView;
-        
-        /** 转发微博的文本 */
-        UILabel *retweetedContentLabel = [[UILabel alloc] init];
-        retweetedContentLabel.textColor = JHColor(100, 100, 100);
-        retweetedContentLabel.font = JHStatusCellRetweetedContentFont;
-        retweetedContentLabel.numberOfLines = 0;
-        [retweetedView addSubview:retweetedContentLabel];
-        self.retweetedContentLabel = retweetedContentLabel;
-        
-        /** 转发微博的配图 */
-        JHStatusPhotosView *retweetedPhotosView = [[JHStatusPhotosView alloc] init];
-        [retweetedView addSubview:retweetedPhotosView];
-        self.retweetedPhotosView = retweetedPhotosView;
-        
-        /** 工具条 */
-        JHStatusToolBar *statusToolBar = [JHStatusToolBar toolBar];
-        [self.contentView addSubview:statusToolBar];
-        self.statusToolBar = statusToolBar;
+        // 3.初始化微博工具条
+        [self initStatusToolBar];
     }
     return self;
+}
+
+/**
+ *  初始化原创微博
+ */
+- (void)initOriginalStatus
+{
+    /** 原创微博的整体 */
+    UIView *originalView = [[UIView alloc] init];
+    originalView.backgroundColor = [UIColor whiteColor];
+    [self.contentView addSubview:originalView];
+    self.originalView = originalView;
+    
+    /** 头像 */
+    JHIconView *iconView = [[JHIconView alloc] init];
+    [originalView addSubview:iconView];
+    self.iconView = iconView;
+    
+    /** VIP图标 */
+    UIImageView *vipView= [[UIImageView alloc] init];
+    [originalView addSubview:vipView];
+    self.vipView = vipView;
+    
+    /** 原创微博配图 */
+    JHStatusPhotosView *photosView= [[JHStatusPhotosView alloc] init];
+    [originalView addSubview:photosView];
+    self.photosView = photosView;
+    
+    /** 昵称 */
+    UILabel *nameLabel = [[UILabel alloc] init];
+    nameLabel.font = JHStatusCellNameFont;
+    [originalView addSubview:nameLabel];
+    self.nameLabel = nameLabel;
+    
+    /** 时间 */
+    UILabel *timeLabel = [[UILabel alloc] init];
+    timeLabel.font = JHStatusCellTimeFont;
+    timeLabel.textColor = [UIColor orangeColor];
+    [originalView addSubview:timeLabel];
+    self.timeLabel = timeLabel;
+    
+    /** 来源 */
+    UILabel *sourceLabel = [[UILabel alloc] init];
+    sourceLabel.font = JHStatusCellSourceFont;
+    sourceLabel.textColor = JHColor(150, 150, 150);
+    [originalView addSubview:sourceLabel];
+    self.sourceLabel = sourceLabel;
+    
+    /** 原创微博文本 */
+    UILabel *contentLabel = [[UILabel alloc] init];
+    contentLabel.font = JHStatusCellContentFont;
+    contentLabel.numberOfLines = 0;
+    [originalView addSubview:contentLabel];
+    self.contentLabel = contentLabel;
+}
+
+/**
+ *  初始化转发微博
+ */
+- (void)initRetweetedStatus
+{
+    /** 转发微博的整体 */
+    UIView *retweetedView = [[UIView alloc] init];
+    retweetedView.backgroundColor = JHColor(247, 247, 247);
+    
+    [self.contentView addSubview:retweetedView];
+    self.retweetedView = retweetedView;
+    
+    /** 转发微博的文本 */
+    UILabel *retweetedContentLabel = [[UILabel alloc] init];
+    retweetedContentLabel.textColor = JHColor(100, 100, 100);
+    retweetedContentLabel.font = JHStatusCellRetweetedContentFont;
+    retweetedContentLabel.numberOfLines = 0;
+    [retweetedView addSubview:retweetedContentLabel];
+    self.retweetedContentLabel = retweetedContentLabel;
+    
+    /** 转发微博的配图 */
+    JHStatusPhotosView *retweetedPhotosView = [[JHStatusPhotosView alloc] init];
+    [retweetedView addSubview:retweetedPhotosView];
+    self.retweetedPhotosView = retweetedPhotosView;
+}
+
+/**
+ *  初始化微博工具条
+ */
+- (void)initStatusToolBar
+{
+    /** 工具条 */
+    JHStatusToolBar *statusToolBar = [JHStatusToolBar toolBar];
+    [self.contentView addSubview:statusToolBar];
+    self.statusToolBar = statusToolBar;
 }
 
 /**
@@ -168,7 +197,9 @@
     self.originalView.frame = statusFrame.originalViewF;
     
     /** 头像 */
-    [self.iconView sd_setImageWithURL:[NSURL URLWithString:user.profile_image_url] placeholderImage:[UIImage imageNamed:@"avatar_default_small"]];
+    
+//    [self.iconView sd_setImageWithURL:[NSURL URLWithString:user.profile_image_url] placeholderImage:[UIImage imageNamed:@"avatar_default_small"]];
+    self.iconView.user = user;
     self.iconView.frame = statusFrame.iconViewF;
     
     /** VIP图标 */
@@ -210,8 +241,8 @@
     statusFrame.timeLabelF = (CGRect){{timeX, timeY},timeSize};
     self.timeLabel.frame = statusFrame.timeLabelF;
     // 意义不一样,statusesFrame模型中timeLabelF并未更改,再次调用时仍为最初的statusesFrame.timeLabelF
-//    self.timeLabel.frame = (CGRect){{timeX, timeY},timeSize};
- 
+    //    self.timeLabel.frame = (CGRect){{timeX, timeY},timeSize};
+    
     /** 来源 */
     CGFloat sourceX = CGRectGetMaxX(statusFrame.timeLabelF) + JHStatusCellBorder;
     CGFloat sourceY = timeY;
