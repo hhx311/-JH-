@@ -13,6 +13,7 @@
 #import "UIImageView+WebCache.h"
 #import "JHPhoto.h"
 #import "JHStatusToolBar.h"
+#import "JHStatusPhotosView.h"
 
 @interface JHStatusCell()
 
@@ -23,7 +24,7 @@
 /** VIP图标 */
 @property (nonatomic, weak) UIImageView *vipView;
 /** 原创微博配图 */
-@property (nonatomic, weak) UIImageView *photoView;
+@property (nonatomic, weak) JHStatusPhotosView *photosView;
 /** 昵称 */
 @property (nonatomic, weak) UILabel *nameLabel;
 /** 时间 */
@@ -38,7 +39,7 @@
 /** 转发微博的文本 */
 @property (nonatomic, weak) UILabel *retweetedContentLabel;
 /** 转发微博的配图 */
-@property (nonatomic, weak) UIImageView *retweetedPhotoView;
+@property (nonatomic, weak) JHStatusPhotosView *retweetedPhotosView;
 
 /** 工具条 */
 @property (nonatomic, weak) JHStatusToolBar *statusToolBar;
@@ -90,9 +91,9 @@
         self.vipView = vipView;
         
         /** 原创微博配图 */
-        UIImageView *photoView= [[UIImageView alloc] init];
-        [originalView addSubview:photoView];
-        self.photoView = photoView;
+        JHStatusPhotosView *photosView= [[JHStatusPhotosView alloc] init];
+        [originalView addSubview:photosView];
+        self.photosView = photosView;
         
         /** 昵称 */
         UILabel *nameLabel = [[UILabel alloc] init];
@@ -137,9 +138,9 @@
         self.retweetedContentLabel = retweetedContentLabel;
         
         /** 转发微博的配图 */
-        UIImageView *retweetedPhotoView = [[UIImageView alloc] init];
-        [retweetedView addSubview:retweetedPhotoView];
-        self.retweetedPhotoView = retweetedPhotoView;
+        JHStatusPhotosView *retweetedPhotosView = [[JHStatusPhotosView alloc] init];
+        [retweetedView addSubview:retweetedPhotosView];
+        self.retweetedPhotosView = retweetedPhotosView;
         
         /** 工具条 */
         JHStatusToolBar *statusToolBar = [JHStatusToolBar toolBar];
@@ -159,7 +160,7 @@
     JHStatus *status = statusFrame.status;
     
     // 调用setStatus方法,让cell重用时刷新最新数据
-    statusFrame.status = status;
+//    statusFrame.status = status;
    
     JHUser *user = status.user;
     
@@ -189,12 +190,11 @@
     
     /** 原创微博配图 */
     if (status.pic_urls.count) { // 有图
-        JHPhoto *photo = [status.pic_urls firstObject];
-        [self.photoView sd_setImageWithURL:[NSURL URLWithString:photo.thumbnail_pic] placeholderImage:[UIImage imageNamed:@"timeline_image_placeholder"]];
-        self.photoView.frame = statusFrame.photoViewF;
-        self.photoView.hidden = NO;
+        self.photosView.photos = status.pic_urls;
+        self.photosView.frame = statusFrame.photosViewF;
+        self.photosView.hidden = NO;
     } else { // 没图
-        self.photoView.hidden = YES;
+        self.photosView.hidden = YES;
     }
     
     /** 昵称 */
@@ -202,22 +202,22 @@
     self.nameLabel.frame = statusFrame.nameLabelF;
     
     /** 时间 */
-//    CGFloat timeX = statusFrame.nameLabelF.origin.x;
-//    CGFloat timeY = CGRectGetMaxY(statusFrame.nameLabelF) + 0.5 * JHStatusCellBorder;
-//    CGSize timeSize = [status.created_at sizeWithFont:JHStatusCellTimeFont maxW:MAXFLOAT];
+    CGFloat timeX = statusFrame.nameLabelF.origin.x;
+    CGFloat timeY = CGRectGetMaxY(statusFrame.nameLabelF) + 0.5 * JHStatusCellBorder;
+    CGSize timeSize = [status.created_at sizeWithFont:JHStatusCellTimeFont maxW:MAXFLOAT];
     self.timeLabel.text = status.created_at;
     
-//    statusFrame.timeLabelF = (CGRect){{timeX, timeY},timeSize};
+    statusFrame.timeLabelF = (CGRect){{timeX, timeY},timeSize};
     self.timeLabel.frame = statusFrame.timeLabelF;
     // 意义不一样,statusesFrame模型中timeLabelF并未更改,再次调用时仍为最初的statusesFrame.timeLabelF
 //    self.timeLabel.frame = (CGRect){{timeX, timeY},timeSize};
  
     /** 来源 */
-//    CGFloat sourceX = CGRectGetMaxX(statusFrame.timeLabelF) + JHStatusCellBorder;
-//    CGFloat sourceY = timeY;
-//    CGSize sourceSize = [status.source sizeWithFont:JHStatusCellSourceFont maxW:MAXFLOAT];
+    CGFloat sourceX = CGRectGetMaxX(statusFrame.timeLabelF) + JHStatusCellBorder;
+    CGFloat sourceY = timeY;
+    CGSize sourceSize = [status.source sizeWithFont:JHStatusCellSourceFont maxW:MAXFLOAT];
     self.sourceLabel.text = status.source;
-//    statusFrame.sourceLabelF = (CGRect){{sourceX, sourceY},sourceSize};
+    statusFrame.sourceLabelF = (CGRect){{sourceX, sourceY},sourceSize};
     self.sourceLabel.frame = statusFrame.sourceLabelF;
     
     /** 原创微博文本 */
@@ -240,13 +240,11 @@
         
         /** 转发微博的配图 */
         if (status.retweeted_status.pic_urls.count) {
-            JHPhoto *retweetedPhoto = [retweeted_status.pic_urls firstObject];
-            [self.retweetedPhotoView sd_setImageWithURL:[NSURL URLWithString:retweetedPhoto.thumbnail_pic] placeholderImage:[UIImage imageNamed:@"timeline_image_placeholder"]];
-            self.retweetedPhotoView.frame = statusFrame.retweetedPhotoViewF;
-            
-            self.retweetedPhotoView.hidden = NO;
+            self.retweetedPhotosView.photos = status.retweeted_status.pic_urls;
+            self.retweetedPhotosView.frame = statusFrame.retweetedPhotosViewF;
+            self.retweetedPhotosView.hidden = NO;
         } else {
-            self.retweetedPhotoView.hidden = YES;
+            self.retweetedPhotosView.hidden = YES;
         }
     } else {
         self.retweetedView.hidden = YES;

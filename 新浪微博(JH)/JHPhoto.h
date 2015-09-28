@@ -11,4 +11,8 @@
 @interface JHPhoto : NSObject
 /** 缩略图地址 */
 @property (nonatomic, copy) NSString *thumbnail_pic;
+/** 中等图地址 */
+@property (nonatomic, copy) NSString *bmiddle_pic;
+/** 原始图地址 */
+@property (nonatomic, copy) NSString *original_pic;
 @end

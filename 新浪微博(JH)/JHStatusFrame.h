@@ -38,7 +38,7 @@
 /** VIP图标 */
 @property (nonatomic, assign) CGRect vipViewF;
 /** 原创微博配图 */
-@property (nonatomic, assign) CGRect photoViewF;
+@property (nonatomic, assign) CGRect photosViewF;
 /** 昵称 */
 @property (nonatomic, assign) CGRect nameLabelF;
 /** 时间 */
@@ -56,7 +56,7 @@
 /** 转发微博的文本 */
 @property (nonatomic, assign) CGRect retweetedContentLabelF;
 /** 转发微博的配图 */
-@property (nonatomic, assign) CGRect retweetedPhotoViewF;
+@property (nonatomic, assign) CGRect retweetedPhotosViewF;
 
 /** 工具条 */
 @property (nonatomic, assign) CGRect statusToolBarF;

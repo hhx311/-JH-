@@ -9,6 +9,7 @@
 #import "JHStatusFrame.h"
 #import "JHUser.h"
 #import "JHStatus.h"
+#import "JHStatusPhotosView.h"
 
 @implementation JHStatusFrame
 
@@ -65,11 +66,11 @@
     /** 原创微博配图 */
     CGFloat originalH;
     if (status.pic_urls.count) {  // 有图
-        CGFloat photoX = contentX;
-        CGFloat photoY = CGRectGetMaxY(self.contentLabelF) + JHStatusCellBorder;
-        CGFloat photoWH = 100;
-        self.photoViewF = CGRectMake(photoX, photoY, photoWH, photoWH);
-        originalH = CGRectGetMaxY(self.photoViewF) + JHStatusCellBorder;
+        CGFloat photosX = contentX;
+        CGFloat photosY = CGRectGetMaxY(self.contentLabelF) + JHStatusCellBorder;
+        CGSize photosSize = [JHStatusPhotosView sizeWithCount:(int)status.pic_urls.count];
+        self.photosViewF = (CGRect){{photosX, photosY}, photosSize};
+        originalH = CGRectGetMaxY(self.photosViewF) + JHStatusCellBorder;
     } else { //没图
         originalH = CGRectGetMaxY(self.contentLabelF) + JHStatusCellBorder;
     }
@@ -91,11 +92,11 @@
         /** 转发微博的配图 */
         CGFloat retweetedH;
         if (status.retweeted_status.pic_urls.count) {  // 有图
-            CGFloat retweetedPhotoX = retweetedContentX;
-            CGFloat retweetedPhotoY = CGRectGetMaxY(self.retweetedContentLabelF) + JHStatusCellBorder;
-            CGFloat retweetedPhotoWH = 100;
-            self.retweetedPhotoViewF = CGRectMake(retweetedPhotoX, retweetedPhotoY, retweetedPhotoWH, retweetedPhotoWH);
-            retweetedH = CGRectGetMaxY(self.retweetedPhotoViewF) + JHStatusCellBorder;
+            CGFloat retweetedPhotosX = retweetedContentX;
+            CGFloat retweetedPhotosY = CGRectGetMaxY(self.retweetedContentLabelF) + JHStatusCellBorder;
+            CGSize retweetedPhotosSize = [JHStatusPhotosView sizeWithCount:(int)status.retweeted_status.pic_urls.count];
+            self.retweetedPhotosViewF = (CGRect){{retweetedPhotosX, retweetedPhotosY}, retweetedPhotosSize};
+            retweetedH = CGRectGetMaxY(self.retweetedPhotosViewF) + JHStatusCellBorder;
         } else { //没图
             retweetedH = CGRectGetMaxY(self.retweetedContentLabelF) + JHStatusCellBorder;
         }

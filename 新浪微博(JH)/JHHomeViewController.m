@@ -192,6 +192,7 @@
         NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
         [self.statusFrames insertObjects:newStatusFrames atIndexes:indexSet];
         
+        //!!!: 打印微博内容
 //        JHLog(@"%@",responseObject);
 
         // 刷新表格
