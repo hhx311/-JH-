@@ -197,8 +197,6 @@
     self.originalView.frame = statusFrame.originalViewF;
     
     /** 头像 */
-    
-//    [self.iconView sd_setImageWithURL:[NSURL URLWithString:user.profile_image_url] placeholderImage:[UIImage imageNamed:@"avatar_default_small"]];
     self.iconView.user = user;
     self.iconView.frame = statusFrame.iconViewF;
     

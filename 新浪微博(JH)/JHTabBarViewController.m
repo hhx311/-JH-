@@ -10,16 +10,14 @@
 #import "JHNavigationController.h"
 #import "JHHomeViewController.h"
 #import "JHMessageCenterViewController.h"
-#import "JHPlusViewController.h"
+#import "JHComposeViewController.h"
 #import "JHDiscoverViewController.h"
 #import "JHProfileViewController.h"
 #import "JHTabBar.h"
 
-@interface JHTabBarViewController ()<JHTabBarDelegate,JHPlusViewControllerDelegate>
-/**
- *  plus(添加+)控制器
- */
-@property (nonatomic, strong) JHPlusViewController *plus;
+@interface JHTabBarViewController ()<JHTabBarDelegate,JHComposeViewControllerDelegate>
+/** compose(发微博)控制器 */
+@property (nonatomic, strong) JHComposeViewController *compose;
 @end
 
 @implementation JHTabBarViewController
@@ -83,27 +81,27 @@
 /**
  *  展开添加栏
  */
-- (void)tabBarDidClickPlusButtonUnselected:(JHTabBar *)tabBar
+- (void)tabBarDidClickComposeButtonUnselected:(JHTabBar *)tabBar
 {
-    JHPlusViewController *plus = [[JHPlusViewController alloc] init];
-    plus.delegate = self;
-    self.plus = plus;
-    plus.view.width = self.view.width;
-    plus.view.height = self.view.height - self.tabBar.height;
-    [self.view addSubview:plus.view];
-
-//    [self presentViewController:plus animated:YES completion:nil];
+    JHComposeViewController *compose = [[JHComposeViewController alloc] init];
+    JHNavigationController *nav = [[JHNavigationController alloc] initWithRootViewController:compose];
+//    compose.delegate = self;
+    [self presentViewController:nav animated:YES completion:nil];
+//    self.compose = compose;
+//    compose.view.width = self.view.width;
+//    compose.view.height = self.view.height - self.tabBar.height;
+//    [self.view addSubview:compose.view];
 }
 /**
  *  收回添加栏
  */
-- (void)tabBarDidClickPlusButtonSelected:(JHTabBar *)tabBar
+- (void)tabBarDidClickComposeButtonSelected:(JHTabBar *)tabBar
 {
-    [self.plus.view removeFromSuperview];
+    [self.compose dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - 实现JHPlusViewControllerDelegate代理方法
-- (void)plusViewControllerDidPop:(JHPlusViewController *)plus
+#pragma mark - 实现JHComposeViewControllerDelegate代理方法
+- (void)composeViewControllerDidPop:(JHComposeViewController *)plus
 {
     JHLog(@"plusViewControllerDidPop");
 }

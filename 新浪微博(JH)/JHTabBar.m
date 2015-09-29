@@ -12,9 +12,9 @@
 @interface JHTabBar ()
 
 /**
- *  tabBar栏中间的添加
+ *  tabBar栏中间的发微博按钮
  */
-@property (nonatomic, weak) UIButton *plusButton;
+@property (nonatomic, weak) UIButton *composeButton;
 
 @end
 
@@ -23,50 +23,50 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        // 添加一个plus按钮
-        UIButton *plusButton = [[UIButton alloc] init];
+        // 添加一个compose按钮
+        UIButton *composeButton = [[UIButton alloc] init];
         
         // 设置按钮图片
-        [plusButton setBackgroundImage:[UIImage imageNamed:@"tabbar_compose_button"] forState:UIControlStateNormal];
-        [plusButton setBackgroundImage:[UIImage imageNamed:@"tabbar_compose_button_highlighted"] forState:UIControlStateHighlighted];
-        [plusButton setImage:[UIImage imageNamed:@"tabbar_compose_icon_add"] forState:UIControlStateNormal];
-        [plusButton setImage:[UIImage imageNamed:@"compose_guide_icon_close_default"] forState:UIControlStateSelected];
+        [composeButton setBackgroundImage:[UIImage imageNamed:@"tabbar_compose_button"] forState:UIControlStateNormal];
+        [composeButton setBackgroundImage:[UIImage imageNamed:@"tabbar_compose_button_highlighted"] forState:UIControlStateHighlighted];
+        [composeButton setImage:[UIImage imageNamed:@"tabbar_compose_icon_add"] forState:UIControlStateNormal];
+        [composeButton setImage:[UIImage imageNamed:@"compose_guide_icon_close_default"] forState:UIControlStateSelected];
         
         // 设置按钮尺寸
-        plusButton.size = plusButton.currentBackgroundImage.size;
+        composeButton.size = composeButton.currentBackgroundImage.size;
         
-        // 监听plusButton
-        [plusButton addTarget:self action:@selector(plusButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        // 监听composeButton
+        [composeButton addTarget:self action:@selector(composeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         
-        [self addSubview:plusButton];
+        [self addSubview:composeButton];
         
-        // 引用plusButton(weak),防止被销毁
-        self.plusButton = plusButton;
+        // 引用composeButton(weak),防止被销毁
+        self.composeButton = composeButton;
     }
     return self;
 }
 
-- (void)plusButtonClick:(UIButton *)plusButton
+- (void)composeButtonClick:(UIButton *)composeButton
 {
-    plusButton.selected = !plusButton.isSelected;
-    if (plusButton.selected) {
-        if ([self.delegate respondsToSelector:@selector(tabBarDidClickPlusButtonUnselected:)]) {
-            [self.delegate tabBarDidClickPlusButtonUnselected:self];
+//    composeButton.selected = !composeButton.isSelected;
+//    if (composeButton.selected) {
+        if ([self.delegate respondsToSelector:@selector(tabBarDidClickComposeButtonUnselected:)]) {
+            [self.delegate tabBarDidClickComposeButtonUnselected:self];
         }
-    } else {
-        if ([self.delegate respondsToSelector:@selector(tabBarDidClickPlusButtonSelected:)]) {
-            [self.delegate tabBarDidClickPlusButtonSelected:self];
-    }
-    }
+//    } else {
+//        if ([self.delegate respondsToSelector:@selector(tabBarDidClickComposeButtonSelected:)]) {
+//            [self.delegate tabBarDidClickComposeButtonSelected:self];
+//    }
+//    }
 }
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
     
-    // 设置plus按钮位置
-    self.plusButton.centerX = self.width * 0.5;
-    self.plusButton.centerY = self.height * 0.5;
+    // 设置compose按钮位置
+    self.composeButton.centerX = self.width * 0.5;
+    self.composeButton.centerY = self.height * 0.5;
     
     // 设置tabBar中其他item的位置
     CGFloat tabBarButtonW = self.width / 5;
@@ -79,7 +79,7 @@
             child.x = tabBarButtonW * tabBarButtonIndex;
             // 索引增加
             tabBarButtonIndex ++;
-            // plus按钮非UITabBarButton类型,直接跳过此循环设置,索引直接+1
+            // compose按钮非UITabBarButton类型,直接跳过此循环设置,索引直接+1
             if (tabBarButtonIndex == 2) {
                 tabBarButtonIndex ++;
             }

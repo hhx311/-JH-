@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9602BBB01BA45FAF002FBDF8 /* JHPlusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9602BBAF1BA45FAF002FBDF8 /* JHPlusViewController.m */; };
+		9602BBB01BA45FAF002FBDF8 /* JHComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9602BBAF1BA45FAF002FBDF8 /* JHComposeViewController.m */; };
 		962B26F51BAF135D00731381 /* JHStatusFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 962B26F41BAF135D00731381 /* JHStatusFrame.m */; settings = {ASSET_TAGS = (); }; };
 		962B26F81BAF95C300731381 /* JHStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 962B26F71BAF95C300731381 /* JHStatusCell.m */; settings = {ASSET_TAGS = (); }; };
 		962D4BFF1BA272CC00C78D0A /* JHSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 962D4BFE1BA272CC00C78D0A /* JHSearchBar.m */; };
@@ -75,6 +75,7 @@
 		967BC4761BB6D776001366C9 /* JHStatusPhotosView.m in Sources */ = {isa = PBXBuildFile; fileRef = 967BC4751BB6D776001366C9 /* JHStatusPhotosView.m */; settings = {ASSET_TAGS = (); }; };
 		967BC4791BB6D797001366C9 /* JHStatusPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 967BC4781BB6D797001366C9 /* JHStatusPhotoView.m */; settings = {ASSET_TAGS = (); }; };
 		967BC47C1BB99B7B001366C9 /* JHIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = 967BC47B1BB99B7B001366C9 /* JHIconView.m */; settings = {ASSET_TAGS = (); }; };
+		968915971BBA455800AE3878 /* JHTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 968915961BBA455800AE3878 /* JHTextView.m */; settings = {ASSET_TAGS = (); }; };
 		968D5CD51BA15F6200A48B0B /* JHTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 968D5CD41BA15F6200A48B0B /* JHTabBarViewController.m */; };
 		968D5CD91BA1644400A48B0B /* JHTest1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 968D5CD71BA1644400A48B0B /* JHTest1ViewController.m */; };
 		968D5CDA1BA1644400A48B0B /* JHTest1ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 968D5CD81BA1644400A48B0B /* JHTest1ViewController.xib */; };
@@ -98,8 +99,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9602BBAE1BA45FAF002FBDF8 /* JHPlusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHPlusViewController.h; sourceTree = "<group>"; };
-		9602BBAF1BA45FAF002FBDF8 /* JHPlusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHPlusViewController.m; sourceTree = "<group>"; };
+		9602BBAE1BA45FAF002FBDF8 /* JHComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHComposeViewController.h; sourceTree = "<group>"; };
+		9602BBAF1BA45FAF002FBDF8 /* JHComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHComposeViewController.m; sourceTree = "<group>"; };
 		962B26F31BAF135D00731381 /* JHStatusFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHStatusFrame.h; sourceTree = "<group>"; };
 		962B26F41BAF135D00731381 /* JHStatusFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHStatusFrame.m; sourceTree = "<group>"; };
 		962B26F61BAF95C300731381 /* JHStatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHStatusCell.h; sourceTree = "<group>"; };
@@ -237,6 +238,8 @@
 		967BC4781BB6D797001366C9 /* JHStatusPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHStatusPhotoView.m; sourceTree = "<group>"; };
 		967BC47A1BB99B7B001366C9 /* JHIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHIconView.h; sourceTree = "<group>"; };
 		967BC47B1BB99B7B001366C9 /* JHIconView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHIconView.m; sourceTree = "<group>"; };
+		968915951BBA455800AE3878 /* JHTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHTextView.h; sourceTree = "<group>"; };
+		968915961BBA455800AE3878 /* JHTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHTextView.m; sourceTree = "<group>"; };
 		968D5CD31BA15F6200A48B0B /* JHTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHTabBarViewController.h; sourceTree = "<group>"; };
 		968D5CD41BA15F6200A48B0B /* JHTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHTabBarViewController.m; sourceTree = "<group>"; };
 		968D5CD61BA1644400A48B0B /* JHTest1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHTest1ViewController.h; sourceTree = "<group>"; };
@@ -275,20 +278,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9602BBAC1BA45F68002FBDF8 /* Plus(添加+) */ = {
+		9602BBAC1BA45F68002FBDF8 /* Compose(发微博) */ = {
 			isa = PBXGroup;
 			children = (
 				9602BBB41BA46CB0002FBDF8 /* View */,
 				9602BBAD1BA45F7A002FBDF8 /* Controller */,
 			);
-			name = "Plus(添加+)";
+			name = "Compose(发微博)";
 			sourceTree = "<group>";
 		};
 		9602BBAD1BA45F7A002FBDF8 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				9602BBAE1BA45FAF002FBDF8 /* JHPlusViewController.h */,
-				9602BBAF1BA45FAF002FBDF8 /* JHPlusViewController.m */,
+				9602BBAE1BA45FAF002FBDF8 /* JHComposeViewController.h */,
+				9602BBAF1BA45FAF002FBDF8 /* JHComposeViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -311,6 +314,8 @@
 				962D4C071BA3C45000C78D0A /* JHDropdownMenu.m */,
 				967BC47A1BB99B7B001366C9 /* JHIconView.h */,
 				967BC47B1BB99B7B001366C9 /* JHIconView.m */,
+				968915951BBA455800AE3878 /* JHTextView.h */,
+				968915961BBA455800AE3878 /* JHTextView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -397,7 +402,7 @@
 				965FC1D21BA6698D0089D26B /* NewFeature(新特性) */,
 				964142841BA1381E00E65534 /* Home(首页) */,
 				968D5CC61BA13FD200A48B0B /* MessageCenter(消息) */,
-				9602BBAC1BA45F68002FBDF8 /* Plus(添加+) */,
+				9602BBAC1BA45F68002FBDF8 /* Compose(发微博) */,
 				968D5CCA1BA1401000A48B0B /* Discover(发现) */,
 				968D5CCE1BA1404A00A48B0B /* Profile(我) */,
 				964142761BA10EC700E65534 /* Main(主要) */,
@@ -906,11 +911,12 @@
 				966F1CE31BA6A5FC00F7FF1A /* MBProgressHUD.m in Sources */,
 				962D4C081BA3C45000C78D0A /* JHDropdownMenu.m in Sources */,
 				968D5CD51BA15F6200A48B0B /* JHTabBarViewController.m in Sources */,
-				9602BBB01BA45FAF002FBDF8 /* JHPlusViewController.m in Sources */,
+				9602BBB01BA45FAF002FBDF8 /* JHComposeViewController.m in Sources */,
 				964686591BAC1E6400559FDF /* SDWebImageDownloader.m in Sources */,
 				9646865D1BAC1E6400559FDF /* UIButton+WebCache.m in Sources */,
 				964142801BA1309100E65534 /* JHDiscoverViewController.m in Sources */,
 				966F1CEE1BA6AA8A00F7FF1A /* UIWindow+Extension.m in Sources */,
+				968915971BBA455800AE3878 /* JHTextView.m in Sources */,
 				963881981BA52D990066EE62 /* JHOAuthViewController.m in Sources */,
 				968D5CD91BA1644400A48B0B /* JHTest1ViewController.m in Sources */,
 				966F1CDA1BA6A5FC00F7FF1A /* AFHTTPSessionManager.m in Sources */,
