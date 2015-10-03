@@ -8,19 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@class JHComposeViewController,JHTextView;
-
-@protocol JHComposeViewControllerDelegate <NSObject>
-
-@optional
-- (void)composeViewControllerDidPop:(JHComposeViewController *)compose;
-
-@end
+@class JHTextView;
 
 @interface JHComposeViewController : UIViewController
-
-@property (nonatomic, strong) id<JHComposeViewControllerDelegate> delegate;
-
 /** 发微博的文本框内容 */
 @property (nonatomic, weak) JHTextView *textView;
 @end

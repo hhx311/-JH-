@@ -13,8 +13,7 @@
 @protocol JHTabBarDelegate <UITabBarDelegate>
 
 @optional
-- (void)tabBarDidClickComposeButtonUnselected:(JHTabBar *)tabBar;
-- (void)tabBarDidClickComposeButtonSelected:(JHTabBar *)tabBar;
+- (void)tabBarDidClickComposeButton:(JHTabBar *)tabBar;
 
 @end
 

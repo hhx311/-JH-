@@ -15,7 +15,7 @@
 #import "JHProfileViewController.h"
 #import "JHTabBar.h"
 
-@interface JHTabBarViewController ()<JHTabBarDelegate,JHComposeViewControllerDelegate>
+@interface JHTabBarViewController ()<JHTabBarDelegate>
 /** compose(发微博)控制器 */
 @property (nonatomic, strong) JHComposeViewController *compose;
 @end
@@ -78,32 +78,11 @@
 }
 
 #pragma mark - 实现JHTabBarDelegate代理方法
-/**
- *  展开添加栏
- */
-- (void)tabBarDidClickComposeButtonUnselected:(JHTabBar *)tabBar
+- (void)tabBarDidClickComposeButton:(JHTabBar *)tabBar
 {
     JHComposeViewController *compose = [[JHComposeViewController alloc] init];
     JHNavigationController *nav = [[JHNavigationController alloc] initWithRootViewController:compose];
-//    compose.delegate = self;
     [self presentViewController:nav animated:YES completion:nil];
-//    self.compose = compose;
-//    compose.view.width = self.view.width;
-//    compose.view.height = self.view.height - self.tabBar.height;
-//    [self.view addSubview:compose.view];
-}
-/**
- *  收回添加栏
- */
-- (void)tabBarDidClickComposeButtonSelected:(JHTabBar *)tabBar
-{
-    [self.compose dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - 实现JHComposeViewControllerDelegate代理方法
-- (void)composeViewControllerDidPop:(JHComposeViewController *)plus
-{
-    JHLog(@"plusViewControllerDidPop");
 }
 
 @end

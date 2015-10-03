@@ -59,11 +59,11 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    if (self.hasText) return;
+    if (self.hasText) return; // 如果有输入文字,直接返回,不画占位符
     
-    CGFloat placeholderX = 5;
-    CGFloat placeholderY = 8;
-    CGFloat placeholderW = rect.size.width - 2 * placeholderX;
+    CGFloat placeholderX = 12;
+    CGFloat placeholderY = 7;
+    CGFloat placeholderW = rect.size.width - 10;
     CGFloat placeholderH = rect.size.height - 2 * placeholderY;
     CGRect placeholderRect = CGRectMake(placeholderX, placeholderY, placeholderW, placeholderH);
     
@@ -72,5 +72,12 @@
     attrs[NSFontAttributeName] = self.font;
     
     [self.placeholder drawInRect:placeholderRect withAttributes:attrs];
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    self.textContainerInset = UIEdgeInsetsMake(7, 7, 0, 0);
 }
 @end

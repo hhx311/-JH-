@@ -42,7 +42,7 @@
 /** 转发微博的配图 */
 @property (nonatomic, weak) JHStatusPhotosView *retweetedPhotosView;
 
-/** 工具条 */
+/** 微博工具条 */
 @property (nonatomic, weak) JHStatusToolBar *statusToolBar;
 
 

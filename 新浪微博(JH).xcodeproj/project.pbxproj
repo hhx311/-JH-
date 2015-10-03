@@ -84,8 +84,10 @@
 		968D5CE71BA24FA200A48B0B /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 968D5CE61BA24FA200A48B0B /* UIBarButtonItem+Extension.m */; };
 		969256BB1BB3DF4D00682931 /* JHStatusToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 969256BA1BB3DF4C00682931 /* JHStatusToolBar.m */; settings = {ASSET_TAGS = (); }; };
 		96CC6D6A1BB0670B00F65763 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CC6D691BB0670B00F65763 /* NSDate+Extension.m */; settings = {ASSET_TAGS = (); }; };
+		96CF32801BBB709C007C8A2E /* JHComposeToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CF327F1BBB709C007C8A2E /* JHComposeToolBar.m */; settings = {ASSET_TAGS = (); }; };
 		96DBD4601BACFD3B00251670 /* JHLoadMoreFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DBD45F1BACFD3B00251670 /* JHLoadMoreFootView.m */; settings = {ASSET_TAGS = (); }; };
 		96DBD4621BACFD5300251670 /* JHLoadMoreFootView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96DBD4611BACFD5300251670 /* JHLoadMoreFootView.xib */; settings = {ASSET_TAGS = (); }; };
+		96ED57DB1BBBDE7100EC2C10 /* JHComposePhotosView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96ED57DA1BBBDE7100EC2C10 /* JHComposePhotosView.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -255,9 +257,13 @@
 		969256BA1BB3DF4C00682931 /* JHStatusToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHStatusToolBar.m; sourceTree = "<group>"; };
 		96CC6D681BB0670B00F65763 /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
 		96CC6D691BB0670B00F65763 /* NSDate+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
+		96CF327E1BBB709C007C8A2E /* JHComposeToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHComposeToolBar.h; sourceTree = "<group>"; };
+		96CF327F1BBB709C007C8A2E /* JHComposeToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHComposeToolBar.m; sourceTree = "<group>"; };
 		96DBD45E1BACFD3B00251670 /* JHLoadMoreFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHLoadMoreFootView.h; sourceTree = "<group>"; };
 		96DBD45F1BACFD3B00251670 /* JHLoadMoreFootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHLoadMoreFootView.m; sourceTree = "<group>"; };
 		96DBD4611BACFD5300251670 /* JHLoadMoreFootView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JHLoadMoreFootView.xib; sourceTree = "<group>"; };
+		96ED57D91BBBDE7100EC2C10 /* JHComposePhotosView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHComposePhotosView.h; sourceTree = "<group>"; };
+		96ED57DA1BBBDE7100EC2C10 /* JHComposePhotosView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHComposePhotosView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,6 +305,10 @@
 		9602BBB41BA46CB0002FBDF8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				96CF327E1BBB709C007C8A2E /* JHComposeToolBar.h */,
+				96CF327F1BBB709C007C8A2E /* JHComposeToolBar.m */,
+				96ED57D91BBBDE7100EC2C10 /* JHComposePhotosView.h */,
+				96ED57DA1BBBDE7100EC2C10 /* JHComposePhotosView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -890,6 +900,7 @@
 				964686291BAC19CF00559FDF /* MJFoundation.m in Sources */,
 				967BC47C1BB99B7B001366C9 /* JHIconView.m in Sources */,
 				96CC6D6A1BB0670B00F65763 /* NSDate+Extension.m in Sources */,
+				96ED57DB1BBBDE7100EC2C10 /* JHComposePhotosView.m in Sources */,
 				9646862B1BAC19CF00559FDF /* MJMember.m in Sources */,
 				9646865F1BAC1E6400559FDF /* UIImage+MultiFormat.m in Sources */,
 				964685D91BAC03AD00559FDF /* JHUser.m in Sources */,
@@ -905,6 +916,7 @@
 				964686271BAC19CF00559FDF /* MJArgument.m in Sources */,
 				964142831BA130A300E65534 /* JHProfileViewController.m in Sources */,
 				964142541BA1077900E65534 /* AppDelegate.m in Sources */,
+				96CF32801BBB709C007C8A2E /* JHComposeToolBar.m in Sources */,
 				966FB7B31BB14F600049FB93 /* JHPhoto.m in Sources */,
 				964686611BAC1E6400559FDF /* UIImageView+HighlightedWebCache.m in Sources */,
 				962B26F81BAF95C300731381 /* JHStatusCell.m in Sources */,

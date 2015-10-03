@@ -48,22 +48,15 @@
 
 - (void)composeButtonClick:(UIButton *)composeButton
 {
-//    composeButton.selected = !composeButton.isSelected;
-//    if (composeButton.selected) {
-        if ([self.delegate respondsToSelector:@selector(tabBarDidClickComposeButtonUnselected:)]) {
-            [self.delegate tabBarDidClickComposeButtonUnselected:self];
+        if ([self.delegate respondsToSelector:@selector(tabBarDidClickComposeButton:)]) {
+            [self.delegate tabBarDidClickComposeButton:self];
         }
-//    } else {
-//        if ([self.delegate respondsToSelector:@selector(tabBarDidClickComposeButtonSelected:)]) {
-//            [self.delegate tabBarDidClickComposeButtonSelected:self];
-//    }
-//    }
 }
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
+
     // 设置compose按钮位置
     self.composeButton.centerX = self.width * 0.5;
     self.composeButton.centerY = self.height * 0.5;
