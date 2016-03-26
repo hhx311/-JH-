@@ -10,9 +10,12 @@
 #import "JHTextView.h"
 #import "JHAccountTool.h"
 #import "AFNetworking.h"
+#import "JHHttpTool.h"
 #import "MBProgressHUD+MJ.h"
 #import "JHComposeToolBar.h"
 #import "JHComposePhotosView.h"
+#import "JHEmotionTextView.h"
+#import "JHEmotionKeyboardView.h"
 
 @interface JHComposeViewController () <UITextViewDelegate,JHComposeToolBarDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 /** 发微博工具条 */
@@ -20,9 +23,29 @@
 
 /** 发微博的配图(全部) */
 @property (nonatomic, weak) JHComposePhotosView *photosView;
+
+
+/** 输入控件 */
+@property (nonatomic, weak) JHEmotionTextView *textView;
+/** 表情键盘 */
+@property (nonatomic, strong) JHEmotionKeyboardView *emotionKeyboard;
+/** 是否正在切换键盘 */
+@property (nonatomic, assign) BOOL switchingKeybaord;
 @end
 
 @implementation JHComposeViewController
+
+- (JHEmotionKeyboardView *)emotionKeyboard
+{
+    if (!_emotionKeyboard) {
+        self.emotionKeyboard = [[JHEmotionKeyboardView alloc] init];
+        // 键盘的宽度
+        self.emotionKeyboard.width = self.view.width;
+        self.emotionKeyboard.height = 216;
+    }
+    return _emotionKeyboard;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -59,6 +82,8 @@
     [self.view addSubview:toolBar];
     self.toolBar = toolBar;
     
+    // 键盘通知
+    // 键盘的frame发生改变时发出的通知（位置和尺寸）
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
 }
 
@@ -169,25 +194,22 @@
     /**	status true string 要发布的微博文本内容，必须做URLencode，内容不超过140个汉字。*/
     /**	pic false binary 微博的配图。*/
     /**	access_token true string*/
-    // 1.请求管理者
-    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-    
-    // 2.拼接请求参数
+    // 拼接请求参数
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"access_token"] = [JHAccountTool account].access_token;
     params[@"status"] = self.textView.text;
     
-    // 3.发送请求
-    [mgr POST:@"https://api.weibo.com/2/statuses/update.json" parameters:params success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
+    // 发送请求
+    [JHHttpTool post:@"https://api.weibo.com/2/statuses/update.json" parameters:params success:^(id responseObject) {
         [MBProgressHUD showSuccess:@"发送成功"];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         [MBProgressHUD showError:@"发送失败"];
     }];
 }
 
 - (void)setupTextView
 {
-    JHTextView *textView = [[JHTextView alloc] init];
+    JHEmotionTextView *textView = [[JHEmotionTextView alloc] init];
     
     textView.frame = self.view.bounds;
     
@@ -203,13 +225,37 @@
     [self.view addSubview:textView];
     
     self.textView = textView;
-        
+    // 文字改变的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChange) name:UITextViewTextDidChangeNotification object:textView];
+    
+    // 表情选中的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(emotionDidSelect:) name:JHEmotionDidSelectNotification object:nil];
+    
+    // 删除文字的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(emotionDidDelete) name:JHEmotionDidDeleteNotification object:nil];
+}
+
+/**
+ *  删除文字
+ */
+- (void)emotionDidDelete
+{
+    [self.textView deleteBackward];
+}
+
+/**
+ *  表情被选中了
+ */
+- (void)emotionDidSelect:(NSNotification *)notification
+{
+    JHEmotion *emotion = notification.userInfo[JHSelectEmotionKey];
+    [self.textView insertEmotion:emotion];
 }
 
 - (void)textDidChange
 {
     self.navigationItem.rightBarButtonItem.enabled = self.textView.hasText;
+    [self.view setNeedsDisplay];
 }
 
 - (void)dealloc
@@ -262,12 +308,44 @@
             break;
             
         case JHComposeToolBarButtonTypeEmotion:
-            JHLog(@"表情");
+            [self switchKeyboard];
             break;
     }
 }
 
 #pragma mark - 其他方法
+/**
+ *  切换键盘
+ */
+- (void)switchKeyboard
+{
+    if (self.textView.inputView == nil) { // 切换为自定义的表情键盘
+        self.textView.inputView = self.emotionKeyboard;
+//        JHLog(@"%@",self.emotionKeyboard);
+        // 显示键盘按钮
+        self.toolBar.showKeyboardButton = YES;
+    } else { // 切换为系统自带的键盘
+        self.textView.inputView = nil;
+        
+        // 显示表情按钮
+        self.toolBar.showKeyboardButton = NO;
+    }
+    
+    // 开始切换键盘
+    self.switchingKeybaord = YES;
+    
+    // 退出键盘
+    [self.textView endEditing:YES];
+    
+    // 结束切换键盘
+    self.switchingKeybaord = NO;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        // 弹出键盘
+        [self.textView becomeFirstResponder];
+    });
+}
+
 - (void)openCamera
 {
     [self openUIImagePickerControllerWithSourceType:UIImagePickerControllerSourceTypeCamera];

@@ -19,7 +19,7 @@
 #import "JHHomeViewController.h"
 #import "JHDropdownMenu.h"
 #import "JHTitleMenuViewController.h"
-#import "AFNetworking.h"
+#import "JHHttpTool.h"
 #import "JHAccountTool.h"
 #import "JHTitleButton.h"
 #import "UIImageView+WebCache.h"
@@ -78,20 +78,15 @@
  */
 - (void)setupUnreadCount
 {
-    // 请求管理者
-    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-    
     // 拼接请求参数
     JHAccount *account = [JHAccountTool account];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"access_token"] = account.access_token;
-//    params[@"uid"] = account.uid;
     
     // 发送请求
-    [mgr GET:JHRequest_remind_unread_count parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+    [JHHttpTool get:JHRequest_remind_unread_count parameters:params success:^(id json) {
         // 微博未读数
-        NSString *status = [responseObject[@"status"] description];
+        NSString *status = [json[@"status"] description];
         
         if ([status isEqualToString:@"0"]) { // 没有未读微博,则清空未读数字
             self.tabBarItem.badgeValue = nil;
@@ -100,8 +95,7 @@
             self.tabBarItem.badgeValue = status;
             [UIApplication sharedApplication].applicationIconBadgeNumber = status.intValue;
         }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         JHLog(@"请求失败,稍后再试---%@",error);
     }];
 }
@@ -164,16 +158,10 @@
  */
 - (void)refreshNewStatus:(UIRefreshControl *)control
 {
-   
-    
-    // 请求管理者
-    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-    
     // 拼接请求参数
     JHAccount *account = [JHAccountTool account];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"access_token"] = account.access_token;
-//    params[@"count"] = @50;
 
     // 取出最前面的微博（最新的微博，ID最大的微博）
     JHStatusFrame *firstStatusF = [self.statusFrames firstObject];
@@ -182,10 +170,10 @@
         params[@"since_id"] = firstStatusF.status.idstr;
     }
     
-    [mgr GET:JHRequest_statuses_friends_timeline parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+    // 发送请求
+    [JHHttpTool get:JHRequest_statuses_friends_timeline parameters:params success:^(id json) {
         // 将加载的字典数组转换成模型数组,用数组存储最新微博模型
-        NSArray *newStatusFrames = [self statusFramesWithStatuses:[JHStatus objectArrayWithKeyValuesArray:responseObject[@"statuses"]]];
+        NSArray *newStatusFrames = [self statusFramesWithStatuses:[JHStatus objectArrayWithKeyValuesArray:json[@"statuses"]]];
         
         // 将最新的微博数据，添加到总数组的最前面
         NSRange range = NSMakeRange(0, newStatusFrames.count);
@@ -193,8 +181,8 @@
         [self.statusFrames insertObjects:newStatusFrames atIndexes:indexSet];
         
         //!!!: 打印微博内容
-//        JHLog(@"%@",responseObject);
-
+        //        JHLog(@"%@",responseObject);
+        
         // 刷新表格
         [self.tableView reloadData];
         
@@ -203,8 +191,7 @@
         
         // 显示最新微博数
         [self showNewStatusesCount:(int)newStatusFrames.count];
-   
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         JHLog(@"请求失败,稍后再试---%@",error);
         
         // 结束刷新
@@ -262,15 +249,17 @@
         }];
     }];
     
-    //???: 是否会影响性能?
-    // 更新刷新后的未读微博数(每次默认刷新最多20条)
-    self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - count];
-    [UIApplication sharedApplication].applicationIconBadgeNumber -= count;
-    // 判断是否要清零
-    if ([UIApplication sharedApplication].applicationIconBadgeNumber < 1) {
-        self.tabBarItem.badgeValue = nil;
-        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    }
+    [self setupUnreadCount];
+    
+//    //???: 是否会影响性能?
+//    // 更新刷新后的未读微博数(每次默认刷新最多20条)
+//    self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - count];
+//    [UIApplication sharedApplication].applicationIconBadgeNumber -= count;
+//    // 判断是否要清零
+//    if ([UIApplication sharedApplication].applicationIconBadgeNumber < 1) {
+//        self.tabBarItem.badgeValue = nil;
+//        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+//    }
 }
 
 /**
@@ -278,9 +267,6 @@
  */
 - (void)loadMoreStatuses
 {
-    // 请求管理者
-    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-    
     // 拼接请求参数
     JHAccount *account = [JHAccountTool account];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
@@ -297,10 +283,9 @@
     }
     
     // 发送请求数据
-    [mgr GET:JHRequest_statuses_friends_timeline parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+    [JHHttpTool get:JHRequest_statuses_friends_timeline parameters:params success:^(id json) {
         // 加载的历史微博数据
-        NSArray *newStatusesFrames = [self statusFramesWithStatuses:[JHStatus objectArrayWithKeyValuesArray:responseObject[@"statuses"]]];
+        NSArray *newStatusesFrames = [self statusFramesWithStatuses:[JHStatus objectArrayWithKeyValuesArray:json[@"statuses"]]];
         
         // 将加载的数据存储到statuses数组中
         [self.statusFrames addObjectsFromArray:newStatusesFrames];
@@ -310,8 +295,7 @@
         
         // 隐藏footView
         self.tableView.tableFooterView.hidden = YES;
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         JHLog(@"请求失败,稍后再试---%@",error);
         
         // 隐藏footView
@@ -328,23 +312,19 @@
     // access_token	false	string	采用OAuth授权方式为必填参数，其他授权方式不需要此参数，OAuth授权后获得。
     // uid	false	int64	需要查询的用户ID。
     
-    // 1.请求管理者
-    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-    
-    // 2.拼接请求参数
+    // 拼接请求参数
     JHAccount *account = [JHAccountTool account];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"access_token"] = account.access_token;
     params[@"uid"] = account.uid;
     
-    // 3.发送请求
-    [mgr GET:JHRequest_users_show parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+    // 发送请求
+    [JHHttpTool get:JHRequest_users_show parameters:params success:^(id json) {
         // 标题按钮/用户名
         UIButton *titleButton = (UIButton *)self.navigationItem.titleView;
         
         // 设置名字
-        JHUser *user = [JHUser objectWithKeyValues:responseObject];
+        JHUser *user = [JHUser objectWithKeyValues:json];
         
         // 设置titleButton的标题(用户名)
         [titleButton setTitle:user.name forState:UIControlStateNormal];
@@ -352,8 +332,7 @@
         // 存储昵称到沙盒
         account.name = user.name;
         [JHAccountTool saveAccount:account];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         JHLog(@"请求失败---%@",error);
     }];
 }

@@ -7,7 +7,7 @@
 //
 
 #import "JHOAuthViewController.h"
-#import "AFNetworking.h"
+#import "JHHttpTool.h"
 #import "JHAccountTool.h"
 #import "MBProgressHUD+MJ.h"
 
@@ -25,7 +25,8 @@
     weibo.delegate = self;
     [self.view addSubview:weibo];
     
-    NSURL *url = [NSURL URLWithString:@"https://api.weibo.com/oauth2/authorize?client_id=2089346202&redirect_uri=http://www.sina.com"];
+    NSString *str = [NSString stringWithFormat:@"https://api.weibo.com/oauth2/authorize?client_id=%@&redirect_uri=%@",JHApp_client_id,JHApp_cedirect_uri];
+    NSURL *url = [NSURL URLWithString:str];
 
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [weibo loadRequest:request];
@@ -87,35 +88,27 @@
      code：授权成功后返回的code
      */
     
-    // 1.请求管理者
-    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-    //    mgr.responseSerializer = [AFJSONResponseSerializer serializer];
-    // AFN的AFJSONResponseSerializer默认不接受text/plain这种类型
-    
-    // 2.拼接请求参数
+    // 1.拼接请求参数
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"client_id"] = @"2089346202";
-    params[@"client_secret"] = @"c7c50836b52e113bd26812f2e439b283";
+    params[@"client_id"] = JHApp_client_id;
+    params[@"client_secret"] = JHApp_client_secret;
     params[@"grant_type"] = @"authorization_code";
-    params[@"redirect_uri"] = @"http://www.sina.com";
+    params[@"redirect_uri"] = JHApp_cedirect_uri;
     params[@"code"] = code;
     
-    // 3.发送请求
-    [mgr POST:@"https://api.weibo.com/oauth2/access_token" parameters:params success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
+    // 2.发送请求
+    [JHHttpTool post:@"https://api.weibo.com/oauth2/access_token" parameters:params success:^(id json) {
         [MBProgressHUD hideHUD];
         
         // 将返回的账号字典数据 --> 模型，存进沙盒
-        JHAccount *account = [JHAccount accountWithDict:responseObject];
+        JHAccount *account = [JHAccount accountWithDict:json];
         // 存储账号信息
         [JHAccountTool saveAccount:account];
         
         // 切换窗口的根控制器
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
         [window switchRootViewController];
-        
-        // UIWindow的分类、HWWindowTool
-        // UIViewController的分类、HWControllerTool
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSError *error) {
         [MBProgressHUD hideHUD];
         JHLog(@"请求失败-%@", error);
     }];

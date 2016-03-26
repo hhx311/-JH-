@@ -11,6 +11,4 @@
 @class JHTextView;
 
 @interface JHComposeViewController : UIViewController
-/** 发微博的文本框内容 */
-@property (nonatomic, weak) JHTextView *textView;
 @end

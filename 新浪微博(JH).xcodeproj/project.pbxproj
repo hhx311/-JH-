@@ -75,6 +75,9 @@
 		967BC4761BB6D776001366C9 /* JHStatusPhotosView.m in Sources */ = {isa = PBXBuildFile; fileRef = 967BC4751BB6D776001366C9 /* JHStatusPhotosView.m */; settings = {ASSET_TAGS = (); }; };
 		967BC4791BB6D797001366C9 /* JHStatusPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 967BC4781BB6D797001366C9 /* JHStatusPhotoView.m */; settings = {ASSET_TAGS = (); }; };
 		967BC47C1BB99B7B001366C9 /* JHIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = 967BC47B1BB99B7B001366C9 /* JHIconView.m */; settings = {ASSET_TAGS = (); }; };
+		9682740A1BBFCC21008C910E /* JHConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 968274091BBFCC21008C910E /* JHConst.m */; settings = {ASSET_TAGS = (); }; };
+		9682740E1BBFD048008C910E /* JHHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 9682740D1BBFD048008C910E /* JHHttpTool.m */; settings = {ASSET_TAGS = (); }; };
+		968274101BBFEE4C008C910E /* EmotionIcons in Resources */ = {isa = PBXBuildFile; fileRef = 9682740F1BBFEE4C008C910E /* EmotionIcons */; settings = {ASSET_TAGS = (); }; };
 		968915971BBA455800AE3878 /* JHTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 968915961BBA455800AE3878 /* JHTextView.m */; settings = {ASSET_TAGS = (); }; };
 		968D5CD51BA15F6200A48B0B /* JHTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 968D5CD41BA15F6200A48B0B /* JHTabBarViewController.m */; };
 		968D5CD91BA1644400A48B0B /* JHTest1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 968D5CD71BA1644400A48B0B /* JHTest1ViewController.m */; };
@@ -85,6 +88,20 @@
 		969256BB1BB3DF4D00682931 /* JHStatusToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 969256BA1BB3DF4C00682931 /* JHStatusToolBar.m */; settings = {ASSET_TAGS = (); }; };
 		96CC6D6A1BB0670B00F65763 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CC6D691BB0670B00F65763 /* NSDate+Extension.m */; settings = {ASSET_TAGS = (); }; };
 		96CF32801BBB709C007C8A2E /* JHComposeToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CF327F1BBB709C007C8A2E /* JHComposeToolBar.m */; settings = {ASSET_TAGS = (); }; };
+		96D1DC021BC03B4100F4B83D /* JHEmotionKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1DC011BC03B4100F4B83D /* JHEmotionKeyboardView.m */; settings = {ASSET_TAGS = (); }; };
+		96D1DC051BC03BDE00F4B83D /* JHEmotionTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1DC041BC03BDE00F4B83D /* JHEmotionTabBar.m */; settings = {ASSET_TAGS = (); }; };
+		96D1DC081BC03BFC00F4B83D /* JHEmotionListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1DC071BC03BFC00F4B83D /* JHEmotionListView.m */; settings = {ASSET_TAGS = (); }; };
+		96D1DC0B1BC03DA800F4B83D /* JHEmotionPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1DC0A1BC03DA800F4B83D /* JHEmotionPageView.m */; settings = {ASSET_TAGS = (); }; };
+		96D1DC0E1BC03ED400F4B83D /* JHEmotionTabBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1DC0D1BC03ED400F4B83D /* JHEmotionTabBarButton.m */; settings = {ASSET_TAGS = (); }; };
+		96D1DC121BC04A1200F4B83D /* JHEmotionTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1DC111BC04A1200F4B83D /* JHEmotionTool.m */; settings = {ASSET_TAGS = (); }; };
+		96D1DC161BC04A8600F4B83D /* JHEmotion.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1DC151BC04A8600F4B83D /* JHEmotion.m */; settings = {ASSET_TAGS = (); }; };
+		96D1DC1F1BC0579D00F4B83D /* JHEmotionPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1DC1E1BC0579D00F4B83D /* JHEmotionPopView.m */; settings = {ASSET_TAGS = (); }; };
+		96D1DC221BC0591700F4B83D /* JHEmotionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1DC211BC0591700F4B83D /* JHEmotionButton.m */; settings = {ASSET_TAGS = (); }; };
+		96D1DC241BC0599700F4B83D /* JHEmotionPopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96D1DC231BC0599700F4B83D /* JHEmotionPopView.xib */; settings = {ASSET_TAGS = (); }; };
+		96D1DC271BC05CDE00F4B83D /* NSString+Emoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1DC261BC05CDE00F4B83D /* NSString+Emoji.m */; settings = {ASSET_TAGS = (); }; };
+		96D1DC2A1BC05D9B00F4B83D /* JHEmotionTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1DC291BC05D9B00F4B83D /* JHEmotionTextView.m */; settings = {ASSET_TAGS = (); }; };
+		96D1DC2D1BC05E9300F4B83D /* UITextView+Extention.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1DC2C1BC05E9300F4B83D /* UITextView+Extention.m */; settings = {ASSET_TAGS = (); }; };
+		96D1DC361BC06E8700F4B83D /* JHEmotionAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D1DC351BC06E8700F4B83D /* JHEmotionAttachment.m */; settings = {ASSET_TAGS = (); }; };
 		96DBD4601BACFD3B00251670 /* JHLoadMoreFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DBD45F1BACFD3B00251670 /* JHLoadMoreFootView.m */; settings = {ASSET_TAGS = (); }; };
 		96DBD4621BACFD5300251670 /* JHLoadMoreFootView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96DBD4611BACFD5300251670 /* JHLoadMoreFootView.xib */; settings = {ASSET_TAGS = (); }; };
 		96ED57DB1BBBDE7100EC2C10 /* JHComposePhotosView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96ED57DA1BBBDE7100EC2C10 /* JHComposePhotosView.m */; settings = {ASSET_TAGS = (); }; };
@@ -240,6 +257,11 @@
 		967BC4781BB6D797001366C9 /* JHStatusPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHStatusPhotoView.m; sourceTree = "<group>"; };
 		967BC47A1BB99B7B001366C9 /* JHIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHIconView.h; sourceTree = "<group>"; };
 		967BC47B1BB99B7B001366C9 /* JHIconView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHIconView.m; sourceTree = "<group>"; };
+		968274081BBFCC21008C910E /* JHConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHConst.h; sourceTree = "<group>"; };
+		968274091BBFCC21008C910E /* JHConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHConst.m; sourceTree = "<group>"; };
+		9682740C1BBFD048008C910E /* JHHttpTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHHttpTool.h; sourceTree = "<group>"; };
+		9682740D1BBFD048008C910E /* JHHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHHttpTool.m; sourceTree = "<group>"; };
+		9682740F1BBFEE4C008C910E /* EmotionIcons */ = {isa = PBXFileReference; lastKnownFileType = folder; path = EmotionIcons; sourceTree = "<group>"; };
 		968915951BBA455800AE3878 /* JHTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHTextView.h; sourceTree = "<group>"; };
 		968915961BBA455800AE3878 /* JHTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHTextView.m; sourceTree = "<group>"; };
 		968D5CD31BA15F6200A48B0B /* JHTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHTabBarViewController.h; sourceTree = "<group>"; };
@@ -259,6 +281,33 @@
 		96CC6D691BB0670B00F65763 /* NSDate+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
 		96CF327E1BBB709C007C8A2E /* JHComposeToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHComposeToolBar.h; sourceTree = "<group>"; };
 		96CF327F1BBB709C007C8A2E /* JHComposeToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHComposeToolBar.m; sourceTree = "<group>"; };
+		96D1DC001BC03B4100F4B83D /* JHEmotionKeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHEmotionKeyboardView.h; sourceTree = "<group>"; };
+		96D1DC011BC03B4100F4B83D /* JHEmotionKeyboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHEmotionKeyboardView.m; sourceTree = "<group>"; };
+		96D1DC031BC03BDE00F4B83D /* JHEmotionTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHEmotionTabBar.h; sourceTree = "<group>"; };
+		96D1DC041BC03BDE00F4B83D /* JHEmotionTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHEmotionTabBar.m; sourceTree = "<group>"; };
+		96D1DC061BC03BFC00F4B83D /* JHEmotionListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHEmotionListView.h; sourceTree = "<group>"; };
+		96D1DC071BC03BFC00F4B83D /* JHEmotionListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHEmotionListView.m; sourceTree = "<group>"; };
+		96D1DC091BC03DA800F4B83D /* JHEmotionPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHEmotionPageView.h; sourceTree = "<group>"; };
+		96D1DC0A1BC03DA800F4B83D /* JHEmotionPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHEmotionPageView.m; sourceTree = "<group>"; };
+		96D1DC0C1BC03ED400F4B83D /* JHEmotionTabBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHEmotionTabBarButton.h; sourceTree = "<group>"; };
+		96D1DC0D1BC03ED400F4B83D /* JHEmotionTabBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHEmotionTabBarButton.m; sourceTree = "<group>"; };
+		96D1DC101BC04A1200F4B83D /* JHEmotionTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHEmotionTool.h; sourceTree = "<group>"; };
+		96D1DC111BC04A1200F4B83D /* JHEmotionTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHEmotionTool.m; sourceTree = "<group>"; };
+		96D1DC141BC04A8600F4B83D /* JHEmotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHEmotion.h; sourceTree = "<group>"; };
+		96D1DC151BC04A8600F4B83D /* JHEmotion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHEmotion.m; sourceTree = "<group>"; };
+		96D1DC1D1BC0579D00F4B83D /* JHEmotionPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHEmotionPopView.h; sourceTree = "<group>"; };
+		96D1DC1E1BC0579D00F4B83D /* JHEmotionPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHEmotionPopView.m; sourceTree = "<group>"; };
+		96D1DC201BC0591700F4B83D /* JHEmotionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHEmotionButton.h; sourceTree = "<group>"; };
+		96D1DC211BC0591700F4B83D /* JHEmotionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHEmotionButton.m; sourceTree = "<group>"; };
+		96D1DC231BC0599700F4B83D /* JHEmotionPopView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JHEmotionPopView.xib; sourceTree = "<group>"; };
+		96D1DC251BC05CDE00F4B83D /* NSString+Emoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Emoji.h"; sourceTree = "<group>"; };
+		96D1DC261BC05CDE00F4B83D /* NSString+Emoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Emoji.m"; sourceTree = "<group>"; };
+		96D1DC281BC05D9B00F4B83D /* JHEmotionTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHEmotionTextView.h; sourceTree = "<group>"; };
+		96D1DC291BC05D9B00F4B83D /* JHEmotionTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHEmotionTextView.m; sourceTree = "<group>"; };
+		96D1DC2B1BC05E9300F4B83D /* UITextView+Extention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+Extention.h"; sourceTree = "<group>"; };
+		96D1DC2C1BC05E9300F4B83D /* UITextView+Extention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Extention.m"; sourceTree = "<group>"; };
+		96D1DC341BC06E8700F4B83D /* JHEmotionAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHEmotionAttachment.h; sourceTree = "<group>"; };
+		96D1DC351BC06E8700F4B83D /* JHEmotionAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHEmotionAttachment.m; sourceTree = "<group>"; };
 		96DBD45E1BACFD3B00251670 /* JHLoadMoreFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHLoadMoreFootView.h; sourceTree = "<group>"; };
 		96DBD45F1BACFD3B00251670 /* JHLoadMoreFootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHLoadMoreFootView.m; sourceTree = "<group>"; };
 		96DBD4611BACFD5300251670 /* JHLoadMoreFootView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JHLoadMoreFootView.xib; sourceTree = "<group>"; };
@@ -287,6 +336,8 @@
 		9602BBAC1BA45F68002FBDF8 /* Compose(发微博) */ = {
 			isa = PBXGroup;
 			children = (
+				96D1DC131BC04A5500F4B83D /* Model */,
+				96D1DC0F1BC049F700F4B83D /* Tool */,
 				9602BBB41BA46CB0002FBDF8 /* View */,
 				9602BBAD1BA45F7A002FBDF8 /* Controller */,
 			);
@@ -309,6 +360,23 @@
 				96CF327F1BBB709C007C8A2E /* JHComposeToolBar.m */,
 				96ED57D91BBBDE7100EC2C10 /* JHComposePhotosView.h */,
 				96ED57DA1BBBDE7100EC2C10 /* JHComposePhotosView.m */,
+				96D1DC001BC03B4100F4B83D /* JHEmotionKeyboardView.h */,
+				96D1DC011BC03B4100F4B83D /* JHEmotionKeyboardView.m */,
+				96D1DC031BC03BDE00F4B83D /* JHEmotionTabBar.h */,
+				96D1DC041BC03BDE00F4B83D /* JHEmotionTabBar.m */,
+				96D1DC0C1BC03ED400F4B83D /* JHEmotionTabBarButton.h */,
+				96D1DC0D1BC03ED400F4B83D /* JHEmotionTabBarButton.m */,
+				96D1DC061BC03BFC00F4B83D /* JHEmotionListView.h */,
+				96D1DC071BC03BFC00F4B83D /* JHEmotionListView.m */,
+				96D1DC091BC03DA800F4B83D /* JHEmotionPageView.h */,
+				96D1DC0A1BC03DA800F4B83D /* JHEmotionPageView.m */,
+				96D1DC1D1BC0579D00F4B83D /* JHEmotionPopView.h */,
+				96D1DC1E1BC0579D00F4B83D /* JHEmotionPopView.m */,
+				96D1DC231BC0599700F4B83D /* JHEmotionPopView.xib */,
+				96D1DC201BC0591700F4B83D /* JHEmotionButton.h */,
+				96D1DC211BC0591700F4B83D /* JHEmotionButton.m */,
+				96D1DC281BC05D9B00F4B83D /* JHEmotionTextView.h */,
+				96D1DC291BC05D9B00F4B83D /* JHEmotionTextView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -379,6 +447,7 @@
 		9641424E1BA1077900E65534 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9682740F1BBFEE4C008C910E /* EmotionIcons */,
 				9641425B1BA1077900E65534 /* Images.xcassets */,
 				9641424F1BA1077900E65534 /* Info.plist */,
 				964142501BA1077900E65534 /* main.m */,
@@ -426,6 +495,8 @@
 			children = (
 				964142521BA1077900E65534 /* AppDelegate.h */,
 				964142531BA1077900E65534 /* AppDelegate.m */,
+				968274081BBFCC21008C910E /* JHConst.h */,
+				968274091BBFCC21008C910E /* JHConst.m */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -433,6 +504,7 @@
 		964142761BA10EC700E65534 /* Main(主要) */ = {
 			isa = PBXGroup;
 			children = (
+				9682740B1BBFD031008C910E /* Tool */,
 				968D5CDE1BA1E6C100A48B0B /* Category */,
 				966F1CBD1BA6A5EB00F7FF1A /* Lib */,
 				964142751BA10EB300E65534 /* Other */,
@@ -652,6 +724,15 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		9682740B1BBFD031008C910E /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				9682740C1BBFD048008C910E /* JHHttpTool.h */,
+				9682740D1BBFD048008C910E /* JHHttpTool.m */,
+			);
+			name = Tool;
+			sourceTree = "<group>";
+		};
 		968D5CC61BA13FD200A48B0B /* MessageCenter(消息) */ = {
 			isa = PBXGroup;
 			children = (
@@ -765,6 +846,8 @@
 		968D5CDE1BA1E6C100A48B0B /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				96D1DC251BC05CDE00F4B83D /* NSString+Emoji.h */,
+				96D1DC261BC05CDE00F4B83D /* NSString+Emoji.m */,
 				968D5CE21BA1E75B00A48B0B /* UIView+Extension.h */,
 				968D5CE31BA1E75B00A48B0B /* UIView+Extension.m */,
 				968D5CE51BA24FA200A48B0B /* UIBarButtonItem+Extension.h */,
@@ -775,6 +858,8 @@
 				9637031B1BB0099E00F51A80 /* NSString+Extension.m */,
 				96CC6D681BB0670B00F65763 /* NSDate+Extension.h */,
 				96CC6D691BB0670B00F65763 /* NSDate+Extension.m */,
+				96D1DC2B1BC05E9300F4B83D /* UITextView+Extention.h */,
+				96D1DC2C1BC05E9300F4B83D /* UITextView+Extention.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -787,6 +872,26 @@
 				968D5CD81BA1644400A48B0B /* JHTest1ViewController.xib */,
 			);
 			name = "Temp(临时)";
+			sourceTree = "<group>";
+		};
+		96D1DC0F1BC049F700F4B83D /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				96D1DC101BC04A1200F4B83D /* JHEmotionTool.h */,
+				96D1DC111BC04A1200F4B83D /* JHEmotionTool.m */,
+			);
+			name = Tool;
+			sourceTree = "<group>";
+		};
+		96D1DC131BC04A5500F4B83D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				96D1DC141BC04A8600F4B83D /* JHEmotion.h */,
+				96D1DC151BC04A8600F4B83D /* JHEmotion.m */,
+				96D1DC341BC06E8700F4B83D /* JHEmotionAttachment.h */,
+				96D1DC351BC06E8700F4B83D /* JHEmotionAttachment.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -874,8 +979,10 @@
 				968D5CDA1BA1644400A48B0B /* JHTest1ViewController.xib in Resources */,
 				96DBD4621BACFD5300251670 /* JHLoadMoreFootView.xib in Resources */,
 				964F49201BA6B4A9005F1710 /* Launch Screen.xib in Resources */,
+				968274101BBFEE4C008C910E /* EmotionIcons in Resources */,
 				9641425C1BA1077900E65534 /* Images.xcassets in Resources */,
 				966F1CE21BA6A5FC00F7FF1A /* MBProgressHUD.bundle in Resources */,
+				96D1DC241BC0599700F4B83D /* JHEmotionPopView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -903,12 +1010,17 @@
 				96ED57DB1BBBDE7100EC2C10 /* JHComposePhotosView.m in Sources */,
 				9646862B1BAC19CF00559FDF /* MJMember.m in Sources */,
 				9646865F1BAC1E6400559FDF /* UIImage+MultiFormat.m in Sources */,
+				96D1DC0B1BC03DA800F4B83D /* JHEmotionPageView.m in Sources */,
 				964685D91BAC03AD00559FDF /* JHUser.m in Sources */,
 				964686601BAC1E6400559FDF /* UIImage+WebP.m in Sources */,
 				964686581BAC1E6400559FDF /* SDWebImageDecoder.m in Sources */,
 				964686571BAC1E6400559FDF /* SDWebImageCompat.m in Sources */,
 				969256BB1BB3DF4D00682931 /* JHStatusToolBar.m in Sources */,
+				96D1DC021BC03B4100F4B83D /* JHEmotionKeyboardView.m in Sources */,
 				966F1CD91BA6A5FC00F7FF1A /* AFHTTPRequestOperationManager.m in Sources */,
+				96D1DC221BC0591700F4B83D /* JHEmotionButton.m in Sources */,
+				9682740E1BBFD048008C910E /* JHHttpTool.m in Sources */,
+				96D1DC081BC03BFC00F4B83D /* JHEmotionListView.m in Sources */,
 				966F1CE11BA6A5FC00F7FF1A /* MBProgressHUD+MJ.m in Sources */,
 				966F1CD81BA6A5FC00F7FF1A /* AFHTTPRequestOperation.m in Sources */,
 				964686551BAC1E6400559FDF /* NSData+ImageContentType.m in Sources */,
@@ -924,6 +1036,7 @@
 				962D4C081BA3C45000C78D0A /* JHDropdownMenu.m in Sources */,
 				968D5CD51BA15F6200A48B0B /* JHTabBarViewController.m in Sources */,
 				9602BBB01BA45FAF002FBDF8 /* JHComposeViewController.m in Sources */,
+				96D1DC1F1BC0579D00F4B83D /* JHEmotionPopView.m in Sources */,
 				964686591BAC1E6400559FDF /* SDWebImageDownloader.m in Sources */,
 				9646865D1BAC1E6400559FDF /* UIButton+WebCache.m in Sources */,
 				964142801BA1309100E65534 /* JHDiscoverViewController.m in Sources */,
@@ -935,37 +1048,46 @@
 				964685DC1BAC03BC00559FDF /* JHStatus.m in Sources */,
 				968D5CE71BA24FA200A48B0B /* UIBarButtonItem+Extension.m in Sources */,
 				964686311BAC19CF00559FDF /* NSObject+MJMember.m in Sources */,
+				96D1DC121BC04A1200F4B83D /* JHEmotionTool.m in Sources */,
 				9646865A1BAC1E6400559FDF /* SDWebImageDownloaderOperation.m in Sources */,
 				9641427D1BA1308400E65534 /* JHMessageCenterViewController.m in Sources */,
 				966F1CDD1BA6A5FC00F7FF1A /* AFURLConnectionOperation.m in Sources */,
+				96D1DC361BC06E8700F4B83D /* JHEmotionAttachment.m in Sources */,
 				966F1CDE1BA6A5FC00F7FF1A /* AFURLRequestSerialization.m in Sources */,
 				966F1CE01BA6A5FC00F7FF1A /* AFURLSessionManager.m in Sources */,
 				9646862D1BAC19CF00559FDF /* MJType.m in Sources */,
 				966F1CEB1BA6A69800F7FF1A /* JHAccount.m in Sources */,
 				967BC4761BB6D776001366C9 /* JHStatusPhotosView.m in Sources */,
+				96D1DC271BC05CDE00F4B83D /* NSString+Emoji.m in Sources */,
 				966F1CDF1BA6A5FC00F7FF1A /* AFURLResponseSerialization.m in Sources */,
 				965FC1D61BA66B9A0089D26B /* JHNewFeatureViewController.m in Sources */,
 				962B26F51BAF135D00731381 /* JHStatusFrame.m in Sources */,
+				96D1DC2D1BC05E9300F4B83D /* UITextView+Extention.m in Sources */,
 				964686631BAC1E6400559FDF /* UIView+WebCacheOperation.m in Sources */,
 				964686561BAC1E6400559FDF /* SDImageCache.m in Sources */,
 				9646865B1BAC1E6400559FDF /* SDWebImageManager.m in Sources */,
 				964686301BAC19CF00559FDF /* NSObject+MJKeyValue.m in Sources */,
 				9637031C1BB0099E00F51A80 /* NSString+Extension.m in Sources */,
+				96D1DC161BC04A8600F4B83D /* JHEmotion.m in Sources */,
 				9646865C1BAC1E6400559FDF /* SDWebImagePrefetcher.m in Sources */,
 				964685A41BABC1EE00559FDF /* JHTitleButton.m in Sources */,
 				962D4C051BA3042D00C78D0A /* JHTabBar.m in Sources */,
 				9646862F1BAC19CF00559FDF /* NSObject+MJCoding.m in Sources */,
 				9641427A1BA1306900E65534 /* JHHomeViewController.m in Sources */,
+				96D1DC2A1BC05D9B00F4B83D /* JHEmotionTextView.m in Sources */,
 				968D5CDD1BA1D9F000A48B0B /* JHNavigationController.m in Sources */,
 				9646862A1BAC19CF00559FDF /* MJIvar.m in Sources */,
 				964686621BAC1E6400559FDF /* UIImageView+WebCache.m in Sources */,
 				9646862C1BAC19CF00559FDF /* MJMethod.m in Sources */,
+				96D1DC0E1BC03ED400F4B83D /* JHEmotionTabBarButton.m in Sources */,
+				96D1DC051BC03BDE00F4B83D /* JHEmotionTabBar.m in Sources */,
 				962D4C021BA3012800C78D0A /* JHTitleMenuViewController.m in Sources */,
 				964686541BAC1E6400559FDF /* MKAnnotationView+WebCache.m in Sources */,
 				966F1CDB1BA6A5FC00F7FF1A /* AFNetworkReachabilityManager.m in Sources */,
 				964686281BAC19CF00559FDF /* MJConst.m in Sources */,
 				9646865E1BAC1E6400559FDF /* UIImage+GIF.m in Sources */,
 				964142511BA1077900E65534 /* main.m in Sources */,
+				9682740A1BBFCC21008C910E /* JHConst.m in Sources */,
 				966F1CE81BA6A68800F7FF1A /* JHAccountTool.m in Sources */,
 				967BC4791BB6D797001366C9 /* JHStatusPhotoView.m in Sources */,
 			);
